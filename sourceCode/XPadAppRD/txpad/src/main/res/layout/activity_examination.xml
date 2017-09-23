@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/title_panel" android:id="@+id/top_panel"/>
+    <include layout="@layout/root_panel" android:id="@+id/bottom_panel"/>
+
+    <RelativeLayout
+        android:id="@+id/p_title_panel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/top_panel">
+
+        <TextView
+            android:id="@+id/sign_num_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="提交：26/30"
+            android:textSize="@dimen/big_text_p3" />
+
+        <ProgressBar
+            android:id="@+id/sign_process_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="400dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/sign_num_desc"
+            android:max="30"
+            android:progress="26"
+            android:progressDrawable="@drawable/progressbar" />
+
+
+
+        <TextView
+            android:id="@+id/rest_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textColor="#cc0000"
+            android:textSize="@dimen/big_text_p3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/rest_time"
+            android:gravity="center"
+            android:text="答题计时："
+            android:textSize="@dimen/big_text_p3" />
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/exam_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/examitation_start_exam"
+        android:layout_above="@+id/bottom_panel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="@dimen/big_text_p3"
+        android:background="@drawable/rancnge_background"/>
+
+    <ListView
+        android:id="@+id/questions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/exam_control"
+        android:layout_below="@id/p_title_panel"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp">
+
+    </ListView>
+
+</RelativeLayout>
