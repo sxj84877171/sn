@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setting_panel"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:layout_alignParentRight="true"
+    android:layout_below="@id/top_panel"
+    android:layout_marginRight="20dp"
+    android:background="@color/text_blank"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/examitation_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/examitation_time"
+                android:textSize="@dimen/big_text_p3" />
+
+            <View
+                android:id="@+id/examitation_time_choose"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/text_black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/examitation_sign_mode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/examitation_sign_mode"
+                android:textSize="@dimen/big_text_p3" />
+
+            <View
+                android:id="@+id/examitation_sign_mode_choose"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/text_black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/examitation_replace_keyboard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/examitation_replace_keyboard"
+                android:textSize="@dimen/big_text_p3" />
+
+            <View
+                android:id="@+id/examitation_replace_keyboard_choose"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/text_black" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/content_panel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/close"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ffb800"
+            android:gravity="center"
+            android:text="@string/examitation_close"
+            android:textColor="@color/text_blank"
+            android:textSize="@dimen/big_text_p3" />
+
+        <TextView
+            android:id="@+id/save"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ff7a00"
+            android:gravity="center"
+            android:text="@string/examitation_save"
+            android:textColor="@color/text_blank"
+            android:textSize="@dimen/big_text_p3" />
+    </LinearLayout>
+
+</LinearLayout>

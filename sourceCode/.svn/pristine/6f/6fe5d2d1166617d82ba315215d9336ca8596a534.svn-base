@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "26.0.0"
+
+    defaultConfig {
+        applicationId "com.sunvote.xpadapp"
+        minSdkVersion 11
+        targetSdkVersion 23
+    }
+
+//    signingConfigs {
+//        release {
+//            // 此处是相对路径，可以在module app下新建一个key文件夹把keystore文件拷贝进去
+//            storeFile file('key/xpad.keystore')
+//        }
+//        debug {
+//            storeFile file('key/debug.keystore')
+//        }
+//    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+        debug {
+            debuggable true
+        }
+    }
+//    externalNativeBuild {
+//        cmake {
+//            path 'CMakeLists.txt'
+//        }
+//    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile files('libs/ant.jar')
+    compile project(':udpmodule')
+    compile project(':xpadprotocal')
+
+
+}
+
+//#解决某些输入文件使用或覆盖了已过时的 API
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+}

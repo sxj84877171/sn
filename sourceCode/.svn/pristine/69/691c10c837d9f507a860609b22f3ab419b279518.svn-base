@@ -1,0 +1,13 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+
+    <!--文字大小标记设置-->
+    <dimen name="big_text_p1">50sp</dimen>
+    <dimen name="big_text_p2">35sp</dimen>
+    <dimen name="big_text_p3">30sp</dimen>
+    <dimen name="big_text_p4">25sp</dimen>
+    <dimen name="big_text_p5">20sp</dimen>
+    <dimen name="big_text_p6">14sp</dimen>
+
+</resources>

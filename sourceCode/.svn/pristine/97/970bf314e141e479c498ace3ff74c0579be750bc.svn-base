@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffa9a9a9">
+
+    <TextView
+        android:id="@+id/admin_modal_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48px"
+        android:text="@string/admin_setting"
+        android:textStyle="bold"
+        android:textSize="50sp" />
+
+    <TextView
+        android:id="@+id/admin_modal_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/admin_modal_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30px"
+        android:text="ver"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/admin_modal_sn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/admin_modal_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30px"
+        android:visibility="gone"
+        android:text="sn"
+        android:textSize="40sp" />
+
+    <ImageButton
+        android:id="@+id/admin_btnback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36px"
+        android:layout_marginTop="48px"
+        android:background="@drawable/back_selector" />
+
+
+    <Button
+        android:id="@+id/admin_match"
+        android:layout_width="312px"
+        android:layout_height="96px"
+        android:layout_centerVertical="true"
+        android:background="@drawable/agree_selector"
+        android:gravity="center"
+        android:text="配对"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/admin_config_mode"
+        android:layout_width="312px"
+        android:layout_height="96px"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="120dp"
+        android:background="@drawable/agree_selector"
+        android:gravity="center"
+        android:text="@string/modifi_idsn"
+        android:textColor="@color/white"
+        android:textSize="36px"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/admin_btnComTest"
+        android:layout_width="312px"
+        android:layout_height="96px"
+        android:layout_alignLeft="@+id/admin_match"
+        android:layout_below="@id/admin_config_mode"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/agree_selector"
+        android:gravity="center"
+        android:layout_marginLeft="120dp"
+        android:text="重新查找服务器IP"
+        android:textColor="@color/white"
+        android:textSize="36px"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/admin_btnInterval"
+        android:layout_width="312px"
+        android:layout_height="96px"
+        android:layout_alignLeft="@+id/admin_config_mode"
+        android:layout_below="@id/admin_config_mode"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/agree_selector"
+        android:gravity="center"
+        android:text="@string/comtest_interval"
+        android:textColor="@color/white"
+        android:textSize="36px"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/admin_btnReboot"
+        android:layout_width="312px"
+        android:layout_height="96px"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/admin_btnComTest"
+        android:layout_marginLeft="300px"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/oppos_selector"
+        android:gravity="center"
+        android:text="@string/reboot"
+        android:textColor="@color/white"
+        android:textSize="36px"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/admin_btnShutdown"
+        android:layout_width="312px"
+        android:layout_height="96px"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="120dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/oppos_selector"
+        android:gravity="center"
+        android:text="@string/shutdown"
+        android:textColor="@color/white"
+        android:textSize="36px"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+</RelativeLayout>
