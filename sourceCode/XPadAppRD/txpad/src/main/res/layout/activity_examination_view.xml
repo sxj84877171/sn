@@ -39,7 +39,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="2017年5月29日英语课前随堂测"
+                android:text=""
                 android:textSize="@dimen/big_text_p2" />
 
             <LinearLayout
@@ -88,6 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/big_text_p3"
                 android:text="@string/examination_view_phase_test" />
         </LinearLayout>
 
@@ -109,6 +110,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/big_text_p3"
                 android:text="@string/examination_view_follow_up_test" />
         </LinearLayout>
 
@@ -153,6 +155,7 @@
                 android:id="@+id/question_answer_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/big_text_p5"
                 android:text="题号：1 ID ：45678" />
 
             <LinearLayout
@@ -163,6 +166,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/big_text_p5"
                     android:text="答案：" />
 
                 <TextView
@@ -171,6 +175,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="A"
+                    android:textSize="@dimen/big_text_p5"
                     android:textColor="#50b4c8" />
 
             </LinearLayout>
@@ -179,6 +184,7 @@
                 android:id="@+id/question_answer_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/big_text_p5"
                 android:text="解析：B选项为8毫米，无法明显感知长高；C选项为8分米，不可能一年内增长；D选项为8微米，肉眼无法辨识；综合各个选项，A选项最符合题目要求。" />
 
         </LinearLayout>

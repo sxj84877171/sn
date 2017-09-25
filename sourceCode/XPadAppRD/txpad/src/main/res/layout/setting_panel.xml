@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/setting_panel"
-    android:layout_width="300dp"
-    android:layout_height="300dp"
+    android:layout_width="450dp"
+    android:layout_height="350dp"
     android:layout_alignParentRight="true"
     android:layout_below="@id/top_panel"
     android:layout_marginRight="20dp"
@@ -95,7 +95,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:orientation="horizontal">
 
         <TextView

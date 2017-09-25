@@ -159,7 +159,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         if(BaseStationManager.getInstance().getBaseStationInfo().isConnected()){
             if(connectState != null){
                 connectState.setText("已连接");
-            }else{
+            }
+        }else{
+            if(connectState != null){
                 connectState.setText("未连接");
             }
         }

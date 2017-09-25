@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-        android:name=".TXadApp"
+        android:name=".TXPadApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,7 +35,7 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="sensorLandscape"/>
         <activity
-            android:name=".ui.exam.ExaminationActivity"
+            android:name=".ui.examlist.ExaminationActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="sensorLandscape"></activity>
 
@@ -45,6 +45,10 @@
             android:screenOrientation="sensorLandscape"></activity>
 
         <activity android:name=".ui.vexam.ExaminationViewActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="sensorLandscape"/>
+
+        <activity android:name=".ui.examgird.ExaminationActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="sensorLandscape"/>
     </application>

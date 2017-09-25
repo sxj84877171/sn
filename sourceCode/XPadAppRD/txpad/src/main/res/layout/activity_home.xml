@@ -48,6 +48,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
 
@@ -55,6 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:gravity="center"
                         android:src="@drawable/page" />
 
                     <TextView
@@ -64,6 +66,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:textSize="@dimen/big_text_p4"
+                        android:gravity="center"
                         android:text="@string/home_fragment_paper_bank" />
 
                 </LinearLayout>
@@ -76,6 +79,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
 
@@ -83,6 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:gravity="center"
                         android:src="@drawable/name" />
 
                     <TextView
@@ -91,6 +96,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
+                        android:gravity="center"
                         android:text="@string/home_fragment_name_collection"
                         android:textSize="@dimen/big_text_p4"/>
 
@@ -103,6 +109,7 @@
                     android:layout_below="@id/name_linear"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
+                    android:gravity="center"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -111,6 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:gravity="center"
                         android:src="@drawable/message" />
 
                     <TextView
@@ -119,6 +127,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
+                        android:gravity="center"
                         android:text="@string/home_fragment_message_box"
                         android:textSize="@dimen/big_text_p4"/>
 
@@ -131,6 +140,7 @@
                     android:layout_below="@id/message_linear"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
+                    android:gravity="center"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -139,6 +149,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:gravity="center"
                         android:src="@drawable/score_book" />
 
                     <TextView
@@ -147,6 +158,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
+                        android:gravity="center"
                         android:text="@string/home_fragment_score_book"
                         android:textSize="@dimen/big_text_p4"/>
 
@@ -156,6 +168,7 @@
                     android:id="@+id/manager_linear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_below="@id/score_book_linear"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
@@ -167,6 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:gravity="center"
                         android:src="@drawable/manager" />
 
                     <TextView
@@ -175,6 +189,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
+                        android:gravity="center"
                         android:text="@string/home_fragment_manager"
                         android:textSize="@dimen/big_text_p4" />
 

@@ -11,7 +11,7 @@ import com.sunvote.txpad.base.BaseActivity;
 import com.sunvote.txpad.bean.ClassStudent;
 import com.sunvote.txpad.bean.Paper;
 import com.sunvote.txpad.bean.Student;
-import com.sunvote.txpad.ui.exam.ExaminationActivity;
+import com.sunvote.txpad.ui.examlist.ExaminationActivity;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@
     <string name="home_fragment_free_pairing">自由配对键盘编号</string>
     <string name="home_fragment_fixed_pairing">固定配对键盘编号</string>
     <string name="home_fragment_s52plus">S52plus</string>
-    <string name="home_fragment_frequency">CH:16</string>
+    <string name="home_fragment_frequency">CH:Unknown</string>
     <string name="home_fragment_paper_bank">试卷库</string>
     <string name="home_fragment_name_collection">花名冊</string>
     <string name="home_fragment_message_box">短信</string>

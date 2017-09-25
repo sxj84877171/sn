@@ -73,7 +73,7 @@
         android:textSize="@dimen/big_text_p6"
         android:gravity="center"
         android:layout_marginLeft="20dp"
-
+        android:layout_centerVertical="true"
         android:text="未连接"/>
 
 </RelativeLayout>

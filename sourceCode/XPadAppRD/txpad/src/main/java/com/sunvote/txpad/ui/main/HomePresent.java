@@ -8,6 +8,7 @@ import com.sunvote.txpad.base.BaseSubscriber;
 import com.sunvote.txpad.bean.ClassStudent;
 import com.sunvote.txpad.bean.Paper;
 import com.sunvote.txpad.bean.ResponseDataBean;
+import com.sunvote.txpad.bean.Student;
 
 import java.util.List;
 
@@ -24,24 +25,10 @@ public class HomePresent extends BasePresent<HomeModel,IHomeActivityView> {
         ApplicationData.getInstance().restore();
         ApplicationDataManager.getInstance().registerKeyEventCallBack();
         if(ApplicationData.getInstance().getClassStudent() == null) {
-            model.getClassList().subscribe(new BaseSubscriber<ResponseDataBean<List<ClassStudent>>>() {
-                @Override
-                public void onNext(ResponseDataBean<List<ClassStudent>> listResponseDataBean) {
-                    super.onNext(listResponseDataBean);
-                    List<ClassStudent> list = listResponseDataBean.getData();
-                    if (list.size() > 0) {
-                        ApplicationData.getInstance().setClassStudent(list.get(0));
-                    }
-                }
-            });
+            initClassStudent();
+        }else if(ApplicationData.getInstance().getStudentList() == null){
+            initStudent(ApplicationData.getInstance().getClassStudent());
         }
-        model.getPaperList(ApplicationData.getInstance().getLoginInfo().getUserId(),ApplicationData.getInstance().getLoginInfo().getSubjectId()).subscribe(new BaseSubscriber<ResponseDataBean<List<Paper>>>(){
-            @Override
-            public void onNext(ResponseDataBean<List<Paper>> listResponseDataBean) {
-                super.onNext(listResponseDataBean);
-
-            }
-        });
         showPaperFragment();
     }
 
@@ -57,6 +44,32 @@ public class HomePresent extends BasePresent<HomeModel,IHomeActivityView> {
         BaseStationManager.getInstance().disconnect();
         ApplicationData.getInstance().commit();
         ApplicationDataManager.getInstance().unRegisterKeyEventCallBack();
+    }
+
+    public void initClassStudent(){
+        model.getClassList().subscribe(new BaseSubscriber<ResponseDataBean<List<ClassStudent>>>() {
+            @Override
+            public void onNext(ResponseDataBean<List<ClassStudent>> listResponseDataBean) {
+                List<ClassStudent> list = listResponseDataBean.getData();
+                if (list.size() > 0) {
+                    ClassStudent classStudent = list.get(0);
+                    ApplicationData.getInstance().setClassStudent(classStudent);
+                    initStudent(classStudent);
+                }
+            }
+        });
+    }
+
+    public void initStudent(ClassStudent classStudent){
+        model.getStudentList(classStudent.getClassId()).subscribe(new BaseSubscriber<ResponseDataBean<List<Student>>>(){
+            @Override
+            public void onNext(ResponseDataBean<List<Student>> listResponseDataBean) {
+                if("200".equals(listResponseDataBean.getCode())){
+                    List<Student> studentList = listResponseDataBean.getData();
+                    ApplicationData.getInstance().setStudentList(studentList);
+                }
+            }
+        });
     }
 
 }

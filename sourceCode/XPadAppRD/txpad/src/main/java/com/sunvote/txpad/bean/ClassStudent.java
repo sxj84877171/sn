@@ -1,6 +1,8 @@
 package com.sunvote.txpad.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Elvis on 2017/9/15.
@@ -22,6 +24,10 @@ public class ClassStudent implements Serializable{
     private String className;
     private String classNo;
     private int studentCount;
+
+    private List<Student> studentList = new ArrayList<>();
+
+    private Paper paper;
 
     public String getClassId() {
         return classId;
@@ -53,5 +59,21 @@ public class ClassStudent implements Serializable{
 
     public void setStudentCount(int studentCount) {
         this.studentCount = studentCount;
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
+    }
+
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setPaper(Paper paper) {
+        this.paper = paper;
+    }
+
+    public Paper getPaper() {
+        return paper;
     }
 }

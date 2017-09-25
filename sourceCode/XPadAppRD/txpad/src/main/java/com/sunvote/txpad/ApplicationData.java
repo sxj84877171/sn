@@ -2,6 +2,7 @@ package com.sunvote.txpad;
 
 import com.sunvote.txpad.bean.ClassStudent;
 import com.sunvote.txpad.bean.LoginInfo;
+import com.sunvote.txpad.bean.Paper;
 import com.sunvote.txpad.bean.Student;
 import com.sunvote.txpad.cache.FileCache;
 
@@ -24,6 +25,9 @@ public class ApplicationData implements Serializable{
     protected ApplicationData() {
     }
 
+    /**
+     * 用户登录信息，包含用户的个人信息
+     */
     private LoginInfo loginInfo;
 
     public void setLoginInfo(LoginInfo loginInfo) {
@@ -37,9 +41,13 @@ public class ApplicationData implements Serializable{
         return loginInfo;
     }
 
+    /**
+     * 当前班级信息。
+     * 该信息和试卷信息为2个方面。
+     *如果当前需要签到，设备检测等信息，则使用班级信息，班级信息关联学生信息，试卷信息，答题信息
+     * 如果是随堂测，则使用试卷信息，无需关注班级信息，试卷信息关联键盘信息，答题信息
+     */
     private ClassStudent classStudent;
-
-    private List<Student> studentList;
 
     public void setClassStudent(ClassStudent classStudent) {
         this.classStudent = classStudent;
@@ -47,8 +55,23 @@ public class ApplicationData implements Serializable{
     }
 
     public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
+        if(classStudent != null){
+            classStudent.setStudentList(studentList);
+        }
         commit();
+    }
+
+    public void setClassPaper(Paper paper){
+        if(classStudent != null){
+            classStudent.setPaper(paper);
+        }
+    }
+
+    public Paper getClassPaper(){
+        if(classStudent != null){
+            return classStudent.getPaper();
+        }
+        return null;
     }
 
     public ClassStudent getClassStudent() {
@@ -56,18 +79,44 @@ public class ApplicationData implements Serializable{
     }
 
     public List<Student> getStudentList() {
-        return studentList;
+        if(classStudent != null){
+            classStudent.getStudentList();
+        }
+        return null;
     }
 
+    /**
+     * 当前试卷信息。
+     * 该信息和试卷信息为2个方面。
+     *如果当前需要签到，设备检测等信息，则使用班级信息，班级信息关联学生信息，试卷信息，答题信息
+     * 如果是随堂测，则使用试卷信息，无需关注班级信息，试卷信息关联键盘信息，答题信息
+     */
+    private Paper noClassPaper;
+
+    public void setNoClassPaper(Paper noClassPaper) {
+        this.noClassPaper = noClassPaper;
+    }
+
+    public Paper getNoClassPaper() {
+        return noClassPaper;
+    }
+
+    /**
+     * 持久化保存信息
+     */
     public  void commit(){
         FileCache.getFileCache().saveObject("ApplicationData",this);
     }
 
+    /**
+     * 从硬盘恢复信息。
+     * 保存上次的信息， 另外一个原因是断电保护，程序闪退
+     */
     public void restore(){
         ApplicationData data = (ApplicationData) FileCache.getFileCache().readObject("ApplicationData");
         if(data != null){
-            setStudentList(data.getStudentList());
             setClassStudent(data.getClassStudent());
+            setNoClassPaper(data.getNoClassPaper());
         }
     }
 }

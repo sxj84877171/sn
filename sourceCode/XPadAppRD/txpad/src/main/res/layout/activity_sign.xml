@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sing_settings"
                 android:textSize="@dimen/big_text_p3"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginRight="10dp"/>
         </LinearLayout>
 
     </RelativeLayout>
@@ -69,13 +69,13 @@
         android:layout_marginLeft="20dp"
         android:id="@+id/control_panel"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_above="@id/bottom_panel"
         android:orientation="horizontal">
 
         <View
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
             android:background="@drawable/rectangle_online" />
 
@@ -86,11 +86,12 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:textSize="@dimen/big_text_p4"
             android:text="@string/sign_had_sign" />
 
         <View
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
             android:layout_marginLeft="40dp"
             android:background="@drawable/rectangle_offline" />
@@ -102,11 +103,12 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:textSize="@dimen/big_text_p4"
             android:text="@string/sign_wait_sign" />
 
         <View
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
             android:layout_marginLeft="40dp"
             android:background="@drawable/rectangle_weak_current" />
@@ -116,6 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textSize="@dimen/big_text_p4"
             android:layout_marginLeft="5dp"
             android:text="@string/basestation_manager_check_weak_current" />
 
@@ -137,6 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:text="@string/sign_start_sign"
                 android:layout_marginRight="5dp"
                 android:textSize="@dimen/big_text_p3" />
@@ -161,6 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:text="@string/examitation_start_exam"
                 android:layout_marginRight="5dp"
                 android:textSize="@dimen/big_text_p3" />

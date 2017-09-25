@@ -1,6 +1,10 @@
 package com.sunvote.txpad.bean;
 
+import com.sunvote.sunvotesdk.basestation.KeyBoard;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Elvis on 2017/9/15.
@@ -26,6 +30,9 @@ public class Paper implements Serializable {
     private String teacherId;
     private String subjectId;
     private int quesCount;
+    private List<Question> questionList = new ArrayList<>();
+
+    private List<KeyBoard> keyBoardList = new ArrayList<>();
 
     public String getPaperId() {
         return paperId;
@@ -73,5 +80,21 @@ public class Paper implements Serializable {
 
     public void setQuesCount(int quesCount) {
         this.quesCount = quesCount;
+    }
+
+    public void setQuestionList(List<Question> questionList) {
+        this.questionList = questionList;
+    }
+
+    public List<Question> getQuestionList() {
+        return questionList;
+    }
+
+    public void setKeyBoardList(List<KeyBoard> keyBoardList) {
+        this.keyBoardList = keyBoardList;
+    }
+
+    public List<KeyBoard> getKeyBoardList() {
+        return keyBoardList;
     }
 }
