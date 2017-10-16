@@ -35,6 +35,11 @@ public class KeyBoard implements Serializable{
      */
     private boolean isOnline ;
 
+    /**
+     * 键盘是否冲突
+     */
+    private boolean conflict ;
+
     public boolean isOnline() {
         return isOnline;
     }
@@ -73,5 +78,13 @@ public class KeyBoard implements Serializable{
 
     public void setWeak(boolean weak) {
         isWeak = weak;
+    }
+
+    public boolean isConflict() {
+        return conflict;
+    }
+
+    public void setConflict(boolean conflict) {
+        this.conflict = conflict;
     }
 }

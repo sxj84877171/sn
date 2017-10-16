@@ -34,4 +34,6 @@ public interface ILoginView extends BaseView{
      * 密码错误
      */
     void showPasswordError();
+
+    void initUsername(String username);
 }

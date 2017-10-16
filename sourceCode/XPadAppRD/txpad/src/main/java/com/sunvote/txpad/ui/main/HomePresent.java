@@ -24,11 +24,6 @@ public class HomePresent extends BasePresent<HomeModel,IHomeActivityView> {
         BaseStationManager.getInstance().init();
         ApplicationData.getInstance().restore();
         ApplicationDataManager.getInstance().registerKeyEventCallBack();
-        if(ApplicationData.getInstance().getClassStudent() == null) {
-            initClassStudent();
-        }else if(ApplicationData.getInstance().getStudentList() == null){
-            initStudent(ApplicationData.getInstance().getClassStudent());
-        }
         showPaperFragment();
     }
 
@@ -44,32 +39,6 @@ public class HomePresent extends BasePresent<HomeModel,IHomeActivityView> {
         BaseStationManager.getInstance().disconnect();
         ApplicationData.getInstance().commit();
         ApplicationDataManager.getInstance().unRegisterKeyEventCallBack();
-    }
-
-    public void initClassStudent(){
-        model.getClassList().subscribe(new BaseSubscriber<ResponseDataBean<List<ClassStudent>>>() {
-            @Override
-            public void onNext(ResponseDataBean<List<ClassStudent>> listResponseDataBean) {
-                List<ClassStudent> list = listResponseDataBean.getData();
-                if (list.size() > 0) {
-                    ClassStudent classStudent = list.get(0);
-                    ApplicationData.getInstance().setClassStudent(classStudent);
-                    initStudent(classStudent);
-                }
-            }
-        });
-    }
-
-    public void initStudent(ClassStudent classStudent){
-        model.getStudentList(classStudent.getClassId()).subscribe(new BaseSubscriber<ResponseDataBean<List<Student>>>(){
-            @Override
-            public void onNext(ResponseDataBean<List<Student>> listResponseDataBean) {
-                if("200".equals(listResponseDataBean.getCode())){
-                    List<Student> studentList = listResponseDataBean.getData();
-                    ApplicationData.getInstance().setStudentList(studentList);
-                }
-            }
-        });
     }
 
 }

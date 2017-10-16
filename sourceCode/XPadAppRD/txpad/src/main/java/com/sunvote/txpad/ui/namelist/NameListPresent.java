@@ -34,7 +34,7 @@ public class NameListPresent extends BasePresent<NameListModel,INameListView> {
                 }
             }
         }
-        model.getClassList().subscribe(new BaseSubscriber<ResponseDataBean<List<ClassStudent>>>(){
+        mRxManager.add(model.getClassList().subscribe(new BaseSubscriber<ResponseDataBean<List<ClassStudent>>>(){
             @Override
             public void onNext(ResponseDataBean<List<ClassStudent>> listResponseDataBean) {
                 FileCache.getFileCache().saveObject("getClassList",listResponseDataBean);
@@ -47,7 +47,7 @@ public class NameListPresent extends BasePresent<NameListModel,INameListView> {
                     }
                 }
             }
-        });
+        }));
     }
 
     public void getStudentList(final String classId){
@@ -55,13 +55,13 @@ public class NameListPresent extends BasePresent<NameListModel,INameListView> {
         if(cache != null){
             view.showStudents(cache.getData());
         }
-        model.getStudentList(classId).subscribe(new BaseSubscriber<ResponseDataBean<List<Student>>>(){
+        mRxManager.add(model.getStudentList(classId).subscribe(new BaseSubscriber<ResponseDataBean<List<Student>>>(){
             @Override
             public void onNext(ResponseDataBean<List<Student>> listResponseDataBean) {
                 FileCache.getFileCache().saveObject("getStudentList&" + classId , listResponseDataBean);
                 view.showStudents(listResponseDataBean.getData());
             }
-        });
+        }));
     }
 
     public int findSelect(List<ClassStudent> list){

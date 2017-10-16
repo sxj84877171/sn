@@ -2,6 +2,7 @@ package com.sunvote.txpad.ui.manager;
 
 import com.sunvote.txpad.R;
 import com.sunvote.txpad.base.BaseActivity;
+import com.sunvote.txpad.base.BasePresent;
 
 /**
  * Created by Elvis on 2017/9/18.
@@ -24,6 +25,11 @@ public class BaseStationManagerActivity extends BaseActivity implements IBaseSta
         present.setView(this);
         present.setModel(new BaseStationManagerModel());
         present.initBaseStation();
+    }
+
+    @Override
+    public BasePresent getBasePresent() {
+        return present;
     }
 
 

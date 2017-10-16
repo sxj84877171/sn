@@ -2,18 +2,27 @@ package com.sunvote.txpad.ui.sign;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.sunvote.txpad.ApplicationData;
+import com.sunvote.txpad.ApplicationDataHelper;
+import com.sunvote.txpad.ApplicationDataManager;
+import com.sunvote.txpad.Constants;
 import com.sunvote.txpad.R;
 import com.sunvote.txpad.base.BaseActivity;
+import com.sunvote.txpad.base.BasePresent;
 import com.sunvote.txpad.bean.ClassStudent;
 import com.sunvote.txpad.bean.Paper;
 import com.sunvote.txpad.bean.Student;
-import com.sunvote.txpad.ui.examlist.ExaminationActivity;
+import com.sunvote.txpad.ui.exam.ExaminationActivity;
+import com.sunvote.util.SPUtils;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Elvis on 2017/9/13.
@@ -23,7 +32,7 @@ import java.util.List;
  */
 public class SignActivity extends BaseActivity implements ISignView {
 
-    private SingPresent present;
+    private SignPresent present;
     private SettingPanel panel;
 
     private GridView students;
@@ -44,9 +53,11 @@ public class SignActivity extends BaseActivity implements ISignView {
 
     private View startSign;
     private TextView startSignText ;
+    private ImageView startSignImg;
+
     private View startExam;
     private TextView startExamText ;
-    private Paper paper;
+    private ImageView startExamImg ;
 
     @Override
     public int getLayoutID() {
@@ -55,9 +66,14 @@ public class SignActivity extends BaseActivity implements ISignView {
 
     @Override
     public void initMVP() {
-        present = new SingPresent();
+        present = new SignPresent();
         present.setView(this);
         present.setModel(new SignModel());
+    }
+
+    @Override
+    public BasePresent getBasePresent() {
+        return present;
     }
 
     @Override
@@ -78,6 +94,8 @@ public class SignActivity extends BaseActivity implements ISignView {
         startSignText = getViewById(R.id.start_sign_text);
         startExam = getViewById(R.id.start_exam);
         startExamText = getViewById(R.id.start_exam_text);
+        startSignImg = getViewById(R.id.start_sign_img);
+        startExamImg = getViewById(R.id.start_exam_img);
 
         panel = new SettingPanel(settingPanel);
         panel.initView();
@@ -111,16 +129,63 @@ public class SignActivity extends BaseActivity implements ISignView {
                 present.exam();
             }
         });
+        panel.setOnSaveClickListener(new SettingPanel.OnSaveClickListener() {
+            @Override
+            public void onSaveClick(View view, int type, int time, int chooseType, int oldKeyboard, int newKeyboard) {
+                if(type == 1){
+                    if(chooseType == 1) {
+                        adapter.setCanClick(true);
+                    }else{
+                        adapter.setCanClick(false);
+                    }
+                }
+                if(type == 2){
+                    String replace = SPUtils.getString(settingPanel.getContext(),Constants.SAVE_LOCAL_KEYBORAD_REPLACE,"");
+                    Map<Integer,Integer> ret = ApplicationDataHelper.getInstance().getKeyBoardReplace(replace);
+                    Integer old = ApplicationDataHelper.getInstance().getKeyboardBeenReplace(ret,newKeyboard);
+                    if(old < 0) {
+                        if(oldKeyboard != newKeyboard){
+                            ret.put(oldKeyboard, newKeyboard);
+                        }else{
+                            ret.remove(oldKeyboard);
+                        }
+                        SPUtils.putString(settingPanel.getContext(), Constants.SAVE_LOCAL_KEYBORAD_REPLACE, ApplicationDataHelper.getInstance().getKeyboardReplaceStr(ret));
+                        ApplicationDataManager.getInstance().setKeyBoardReplace(ret);
+                    }else{
+                        showToast(getString(R.string.sign_mode_replace_remind_msg,old));
+                    }
+                }
+            }
+        });
+
     }
 
     @Override
     public void initData() {
-        Intent intent = getIntent();
-        paper = (Paper) intent.getSerializableExtra("paper");
-        present.setPaper(paper);
+        present.setPaper(ApplicationData.getInstance().getClassPaper());
         adapter = new StudentAdapter();
         students.setAdapter(adapter);
+        int mode = SPUtils.getInt(this, Constants.SAVE_SIGN_MODE_KEY);
+        if(mode == 1){
+            adapter.setCanClick(true);
+        }else{
+            adapter.setCanClick(false);
+        }
+        adapter.setOnItemClickListener(new StudentAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, Student student, int index) {
+                List<Student> studentList = ApplicationData.getInstance().getStudentList();
+                for(Student  student1: studentList){
+                    if(student.getStudentId().equals(student1.getStudentId())){
+                        continue;
+                    }
+                    student1.setSignReady(false);
+                }
+                adapter.showStudents(studentList);
+            }
+        });
         present.init();
+        present.queryState(this);
     }
 
     @Override
@@ -156,22 +221,22 @@ public class SignActivity extends BaseActivity implements ISignView {
     public void showSignNum(int signed, int unsigned,int weak){
         signednum.setText(getString(R.string.sign_had_sign) + signed);
         unSignNum.setText(getString(R.string.sign_wait_sign) + unsigned);
-        weakCurrentNum.setText(getString(R.string.basestation_manager_check_weak_current) + weak);
+        weakCurrentNum.setText(getString(R.string.basestation_manager_check_conflict) + weak);
     }
 
     public void startSign(){
         startSignText.setText(R.string.sign_stop_sign);
+        startSignImg.setImageResource(R.drawable.sign_stop);
     }
 
     public void stopSign(){
         startSignText.setText(R.string.sign_start_sign);
+        startSignImg.setImageResource(R.drawable.sign_start);
     }
 
     public void startExam(){
-//        startExamText.setText(R.string.examitation_end_exam);
-
         Intent intent = new Intent(this,ExaminationActivity.class);
-        intent.putExtra("paper",paper);
+        intent.putExtra("mode", ApplicationDataManager.MODE_CLASS_STUDENT);
         startActivity(intent);
     }
 

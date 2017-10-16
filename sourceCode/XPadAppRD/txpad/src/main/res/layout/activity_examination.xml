@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/text_blank">
 
-    <include layout="@layout/title_panel" android:id="@+id/top_panel"/>
-    <include layout="@layout/root_panel" android:id="@+id/bottom_panel"/>
+    <include
+        android:id="@+id/top_panel"
+        layout="@layout/title_panel" />
+
+    <include
+        android:id="@+id/bottom_panel"
+        layout="@layout/root_panel" />
+
+
+    <!--开始考试-->
+    <LinearLayout
+        android:id="@+id/exam_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_panel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rancnge_background">
+
+        <ImageView
+            android:id="@+id/start_exam_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/exam_start" />
+
+        <TextView
+            android:id="@+id/start_exam_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/examitation_start_exam"
+            android:layout_marginRight="5dp"
+            android:textSize="@dimen/big_text_p3" />
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/p_title_panel"
@@ -13,29 +50,106 @@
         android:layout_height="50dp"
         android:layout_below="@id/top_panel">
 
-        <TextView
-            android:id="@+id/sign_num_desc"
+        <LinearLayout
+            android:id="@+id/list_title_panel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/sign_num_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="@string/examitation_submit_num"
+                android:textSize="@dimen/big_text_p3" />
+
+            <ProgressBar
+                android:id="@+id/sign_process_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="400dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:max="30"
+                android:progress="26"
+                android:progressDrawable="@drawable/progressbar" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gird_title_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:text="提交：26/30"
-            android:textSize="@dimen/big_text_p3" />
+            android:visibility="gone"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/rectangle_answer_all" />
 
-        <ProgressBar
-            android:id="@+id/sign_process_bar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="400dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/sign_num_desc"
-            android:max="30"
-            android:progress="26"
-            android:progressDrawable="@drawable/progressbar" />
+            <TextView
+                android:id="@+id/answer_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="@string/examitation_answer_all" />
 
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/rectangle_answer_part" />
 
+            <TextView
+                android:id="@+id/answer_part"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="@string/examitation_answer_part" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/rectangle_answer_no_start" />
+
+            <TextView
+                android:id="@+id/answer_no_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="@string/examitation_answer_no_start" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/rectangle_answer_no_sign" />
+
+            <TextView
+                android:id="@+id/answer_no_sign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:text="@string/examitation_answer_no_sign" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/rest_time"
@@ -56,25 +170,9 @@
             android:layout_marginRight="20dp"
             android:layout_toLeftOf="@id/rest_time"
             android:gravity="center"
-            android:text="答题计时："
+            android:text="@string/examitation_submit_rest_time"
             android:textSize="@dimen/big_text_p3" />
     </RelativeLayout>
-
-
-
-    <TextView
-        android:id="@+id/exam_control"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/examitation_start_exam"
-        android:layout_above="@+id/bottom_panel"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:textSize="@dimen/big_text_p3"
-        android:background="@drawable/rancnge_background"/>
 
     <ListView
         android:id="@+id/questions"
@@ -84,8 +182,26 @@
         android:layout_below="@id/p_title_panel"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        >
 
     </ListView>
+
+    <GridView
+        android:id="@+id/students"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/exam_control"
+        android:layout_below="@id/p_title_panel"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:columnWidth="120dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:visibility="gone"
+        android:verticalSpacing="10dp"></GridView>
 
 </RelativeLayout>

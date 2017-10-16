@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingRight="20dp"
-            android:textSize="@dimen/big_text_p3"
+            android:textSize="@dimen/big_text_p4"
             android:textColor="@color/text_gray"
             android:text="@string/basestation_manager_device_check" />
 
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="@dimen/big_text_p3"
+            android:textSize="@dimen/big_text_p4"
             android:textColor="@color/text_gray"
             android:text="@string/basestation_manager_device_frequency" />
 
@@ -47,7 +47,7 @@
             android:id="@+id/ch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/big_text_p3"
+            android:textSize="@dimen/big_text_p4"
             android:text="12" />
     </LinearLayout>
 
@@ -55,14 +55,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:textSize="@dimen/big_text_p4"
         android:text="@string/basestation_manager_system_language" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <Button
@@ -89,14 +89,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:textSize="@dimen/big_text_p3"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/big_text_p4"
         android:text="@string/basestation_manager_keyboard_type"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <Button
@@ -150,14 +150,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:textSize="@dimen/big_text_p3"
+        android:layout_marginTop="20dp"
+        android:textSize="@dimen/big_text_p4"
         android:text="@string/basestation_manager_use_mode" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <Button
@@ -179,7 +179,16 @@
             android:textSize="@dimen/big_text_p5"
             android:text="@string/basestation_manager_use_mode_fixed" />
 
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/connect_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rancnge_background"
+        android:textAllCaps="false"
+        android:textSize="@dimen/big_text_p5"
+        android:text="@string/basestation_manager_connect_again" />
 
 </LinearLayout>

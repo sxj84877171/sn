@@ -8,9 +8,14 @@ package com.sunvote.txpad;
  */
 public final class Constants {
 
-    public static final String BASE_URL = "http://192.168.0.3:8080/sunvoteAPI/" ;
+    public static final String BASE_URL = "http://192.168.0.3:8080/sunvoteAPI/";//"http://192.168.0.185/sunvoteAPI/" ;// "http://192.168.0.181:8080/sunvoteAPI/" ;
+    //"http://192.168.0.3:8080/sunvoteAPI/";//
 
     public static final String SAVE_EXAM_TIME_KEY = "save_exam_time_key" ;
 
     public static final String SAVE_SIGN_MODE_KEY = "save_sign_mode_key" ;
+
+    public static final String SAVE_LOGIN_USENAME = "save_login_usename" ;
+
+    public static final String SAVE_LOCAL_KEYBORAD_REPLACE = "save_local_keyborad_replace" ;
 }

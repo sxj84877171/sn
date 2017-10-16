@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sunvote.xpadapp"
     android:versionCode="1"
-    android:versionName="1.0.35" >
+    android:versionName="1.0.37" >
 
     <!-- android:sharedUserId="android.uid.system" -->
 
@@ -10,6 +10,7 @@
         android:minSdkVersion="11"
         android:targetSdkVersion="23" />
 
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" >
     </uses-permission>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >

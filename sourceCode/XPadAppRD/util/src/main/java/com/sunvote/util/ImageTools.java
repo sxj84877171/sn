@@ -24,12 +24,6 @@ import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-/**
- * Tools for handler picture
- * 
- * @author suyun
- * 
- */
 public final class ImageTools {
 
 	/**
@@ -105,7 +99,7 @@ public final class ImageTools {
 	/**
 	 * Bitmap transfer to bytes
 	 * 
-	 * @param byteArray
+	 * @param bm
 	 * @return
 	 */
 	public static byte[] bitmapToBytes(Bitmap bm) {

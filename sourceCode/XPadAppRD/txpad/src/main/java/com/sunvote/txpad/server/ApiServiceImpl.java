@@ -3,6 +3,7 @@ package com.sunvote.txpad.server;
 import com.sunvote.txpad.bean.ClassStudent;
 import com.sunvote.txpad.bean.LoginInfo;
 import com.sunvote.txpad.bean.Paper;
+import com.sunvote.txpad.bean.PaperScore;
 import com.sunvote.txpad.bean.Question;
 import com.sunvote.txpad.bean.ResponseDataBean;
 import com.sunvote.txpad.bean.Student;
@@ -10,6 +11,8 @@ import com.sunvote.txpad.bean.Subject;
 
 import java.util.List;
 
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -65,20 +68,90 @@ public class ApiServiceImpl implements ApiService {
      *
      * @param userId    用户id
      * @param subjectId 科目id
+     * @param paperType 试卷类型(空传回所有类型，zt=真题，mn=模拟)
      * @return
      */
     @Override
-    public Observable<ResponseDataBean<List<Paper>>> getPaperList(@Query("userId") String userId, @Query("subjectId") String subjectId) {
-        return Api.getInstance().getService().getPaperList(userId,subjectId);
+    public Observable<ResponseDataBean<List<Paper>>> getPaperList( String userId,  String subjectId,  String paperType) {
+        return Api.getInstance().getService().getPaperList(userId,subjectId,paperType);
+    }
+
+    /**
+     * 获取公共试卷
+     *
+     * @param subjectId 科目id
+     * @param paperType 试卷类型(空传回所有类型，zt=真题，mn=模拟)
+     * @return
+     */
+    @Override
+    public Observable<ResponseDataBean<List<Paper>>> getCommonPaper(String subjectId,  String paperType) {
+        return Api.getInstance().getService().getCommonPaper(subjectId,paperType);
     }
 
     /**
      * 获取试卷的题目列表
-     * @param paperId 试卷ID
+     * @param paperId   试卷ID
+     * @param paperType 试卷类型
      * @return
      */
     @Override
-    public Observable<ResponseDataBean<List<Question>>> getPaperQuestion(@Query("paperId") String paperId) {
-        return Api.getInstance().getService().getPaperQuestion(paperId);
+    public Observable<ResponseDataBean<List<Question>>> getPaperQuestion( String paperId,  String paperType) {
+        return Api.getInstance().getService().getPaperQuestion(paperId,paperType);
     }
+
+    /***
+     * 上传个人试卷
+     * @param paper 试卷内容
+     * @return
+     */
+    @Override
+    public Observable<ResponseDataBean<String>> addPaper(Paper paper) {
+        return Api.getInstance().getService().addPaper(paper);
+    }
+
+    /**
+     * 添加公共试卷到个人试卷库
+     *
+     * @param userId  用户ID
+     * @param paperId 试卷Id
+     * @return
+     */
+    @Override
+    public Observable<ResponseDataBean<Void>> collectCommPaper(String userId,String paperId) {
+        return Api.getInstance().getService().collectCommPaper(userId,paperId);
+    }
+
+    /**
+     * 上传成绩报表时以post方式提交，参数设置为data=json字符串
+     *
+     * @param paperScore
+     * @return
+     */
+    @Override
+    public Observable<ResponseDataBean<String>> addReport(String paperScore) {
+        return Api.getInstance().getService().addReport(paperScore);
+    }
+
+    /**
+     * 根据报表ID查询详细的报表信息
+     * @param reportId 报表id
+     * @return
+     */
+    @Override
+    public Observable<ResponseDataBean<PaperScore>> getReport(String reportId) {
+        return Api.getInstance().getService().getReport(reportId);
+    }
+
+    /**
+     * 根据用户ID和班级名称获取服务器上已存储的报表列表
+     *
+     * @param userId    用户Id
+     * @param className 班级名称
+     * @return
+     */
+    @Override
+    public Observable<ResponseDataBean<List<PaperScore>>> getReportList(String userId,String className,String paperType) {
+        return Api.getInstance().getService().getReportList(userId,className,paperType);
+    }
+
 }

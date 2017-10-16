@@ -80,7 +80,7 @@ public class ApplicationData implements Serializable{
 
     public List<Student> getStudentList() {
         if(classStudent != null){
-            classStudent.getStudentList();
+            return classStudent.getStudentList();
         }
         return null;
     }

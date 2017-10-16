@@ -55,6 +55,7 @@ public class BaseStationManager {
                     if(!baseStationInfo.isConnected()) {
                         SunARS.connect(baseStationInfo.getConnectType(), baseStationInfo.getConnectInfo());
                         LogUtil.i(TAG, "发起连接基站!");
+                        workThread.postDelayed(tcpConnect,2000);
                     }
                 }
             }
@@ -69,6 +70,16 @@ public class BaseStationManager {
 //        }
     }
 
+    private Runnable tcpConnect = new Runnable() {
+        @Override
+        public void run() {
+            baseStationInfo.setConnectType(BaseStationInfo.CONNECT_TYPE_TCP);//tcp 连接
+            baseStationInfo.setConnectInfo(BaseStationInfo.CONNECT_INFO_TCP);
+            SunARS.connect(baseStationInfo.getConnectType(), baseStationInfo.getConnectInfo());
+        }
+    };
+
+
     private BaseStationManager() {
         SunARS.setListener(listener);
     }
@@ -79,6 +90,9 @@ public class BaseStationManager {
         public void onConnectEventCallBack(int iBaseID, int iMode, String sInfo) {
             LogUtil.i(TAG,"onConnectEventCallBack(mode=" + iMode + ",baseId=" + iBaseID + ",info=" + sInfo + ")");
             LogUtil.i(TAG, "基站连接返回数据!");
+            if(SUCCESS.equals(sInfo) && iMode == 4){// 如果串口连接成功，则撤销tcp连接
+                workThread.removeCallbacks(tcpConnect);
+            }
             if (SUCCESS.equals(sInfo) && iMode == baseStationInfo.getConnectType()) {
                 LogUtil.i(TAG, "基站连接成功,baseID:" + iBaseID);
                 baseStationInfo.setBaseId(iBaseID);
@@ -311,7 +325,7 @@ public class BaseStationManager {
             }
 
             case SunARS.Background_SignIn:{
-                if(SUCCESS.equals(sInfo)){
+                if("1,2".equals(sInfo)){
                     baseStationInfo.setBackgroundSign(true);
                 }else{
                     baseStationInfo.setBackgroundSign(false);
@@ -456,7 +470,9 @@ public class BaseStationManager {
      */
     public void readParam(int baseId, int iMode) {
         LogUtil.i(TAG, "读取基站信息，baseid:" + baseId + ",iMode:" + iMode);
-        SunARS.readHDParam(baseId, iMode);
+        if(baseStationInfo.isConnected()){
+            SunARS.readHDParam(baseId, iMode);
+        }
     }
 
 
@@ -466,6 +482,7 @@ public class BaseStationManager {
     public void disconnect() {
         if (baseStationInfo.isConnected()) {
             SunARS.voteStop();
+            baseStationInfo.setMode(0);
             SunARS.disconnect(baseStationInfo.getBaseId());
             baseStationInfo.setConnected(false);
         }
@@ -523,7 +540,9 @@ public class BaseStationManager {
      * @param num
      */
     public void voteStartChoice(int num) {
-        voteStartChoice(BaseStationInfo.VOTETYPE_CHOICE_DEFAULT_SETTING_BEGIN + num + "," + num);
+        if(baseStationInfo.isConnected()){
+            voteStartChoice(BaseStationInfo.VOTETYPE_CHOICE_DEFAULT_SETTING_BEGIN + num + "," + num);
+        }
     }
 
     /**
@@ -767,7 +786,7 @@ public class BaseStationManager {
      */
     public void voteStop() {
         SunARS.voteStop();
-        baseStationInfo.setExaminationRunning(false);
+        baseStationInfo.setMode(0);
     }
 
     /**
@@ -823,14 +842,27 @@ public class BaseStationManager {
     }
 
     public void voteStartBackgroundSignIn(){
-        SunARS.writeHDParam(baseStationInfo.getBaseId(),SunARS.Background_SignIn,"1,2");
+        if(baseStationInfo.isConnected()){
+            SunARS.writeHDParam(baseStationInfo.getBaseId(),SunARS.Background_SignIn,"1,2");
+        }
     }
 
     public void voteStopBackgroundSignIn(){
-        SunARS.writeHDParam(baseStationInfo.getBaseId(),SunARS.Background_SignIn,"0,2");
+        if(baseStationInfo.isConnected()){
+            SunARS.writeHDParam(baseStationInfo.getBaseId(),SunARS.Background_SignIn,"0,2");
+        }
     }
 
     public void voteStartKeyPadTest(){
-        SunARS.voteStart(SunARS.VoteType_KeyPadTest, "1,0,1");
+        if(baseStationInfo.isConnected()){
+            baseStationInfo.setMode(SunARS.VoteType_KeyPadTest);
+            SunARS.voteStart(SunARS.VoteType_KeyPadTest, "1,0,1");
+        }
+    }
+
+    public void sendKeyboradSignFail(String keyID){
+        if(baseStationInfo.isConnected()){
+            SunARS.writeHDParam(0,SunARS.Keypad_AuthorizeByID, keyID + ",2");
+        }
     }
 }

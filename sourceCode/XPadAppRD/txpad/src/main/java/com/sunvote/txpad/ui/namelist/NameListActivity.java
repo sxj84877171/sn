@@ -10,6 +10,7 @@ import android.widget.Switch;
 import com.sunvote.txpad.ApplicationData;
 import com.sunvote.txpad.R;
 import com.sunvote.txpad.base.BaseActivity;
+import com.sunvote.txpad.base.BasePresent;
 import com.sunvote.txpad.bean.ClassStudent;
 import com.sunvote.txpad.bean.Student;
 import com.sunvote.txpad.ui.sign.StudentAdapter;
@@ -31,6 +32,8 @@ public class NameListActivity extends BaseActivity implements INameListView{
     private ClassAdapter classAdapter;
     private View add ;
     private View edit ;
+    private View back;
+    private EditStudentDialog editStudentDialog ;
     @Override
     public int getLayoutID() {
         return R.layout.activiity_name_list;
@@ -43,6 +46,11 @@ public class NameListActivity extends BaseActivity implements INameListView{
         present.setView(this);
     }
 
+    @Override
+    public BasePresent getBasePresent() {
+        return present;
+    }
+
     private GridView students ;
 
     @Override
@@ -52,6 +60,7 @@ public class NameListActivity extends BaseActivity implements INameListView{
         classNameList = getViewById(R.id.class_name_list);
         add = getViewById(R.id.add);
         edit = getViewById(R.id.edit);
+        back = getViewById(R.id.back);
     }
 
     @Override
@@ -87,14 +96,52 @@ public class NameListActivity extends BaseActivity implements INameListView{
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showToast("后续实现");
+                showToast("请期待");
+//                editStudentDialog.showStudentInfo(null,false,null);
+//                editStudentDialog.show();
             }
         });
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.setEdit();
+//                adapter.setEdit();
+                showToast("请期待");
+            }
+        });
+
+        editStudentDialog.setOnEditClickListener(new EditStudentDialog.OnEditClickListener() {
+            @Override
+            public void onCancelClick(View view, String no, String name, String id, String sn, Object moreInfo) {
+                editStudentDialog.dismiss();
+
+            }
+
+            @Override
+            public void onSaveClick(View view, String no, String name, String id, String sn, Object moreInfo) {
+                editStudentDialog.dismiss();
+                if(moreInfo == null) {
+                    Student student = new Student();
+                    student.setStudentName(name);
+                    student.setStudentId(no);
+                    student.getKeyBoard().setKeyId(id);
+                    student.getKeyBoard().setKeySn(sn);
+                    ApplicationData.getInstance().getStudentList().add(student);
+                }else{
+                    Student student = (Student)moreInfo;
+                    student.setStudentName(name);
+                    student.setStudentId(no);
+                    student.getKeyBoard().setKeyId(id);
+                    student.getKeyBoard().setKeySn(sn);
+                    showStudents(ApplicationData.getInstance().getStudentList());
+                }
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
@@ -107,6 +154,8 @@ public class NameListActivity extends BaseActivity implements INameListView{
         classAdapter = new ClassAdapter();
         classNameList.setAdapter(classAdapter);
         present.getClassList();
+        editStudentDialog = new EditStudentDialog(this);
+        editStudentDialog.create();
     }
 
 
@@ -123,4 +172,5 @@ public class NameListActivity extends BaseActivity implements INameListView{
             classNameList.setSelection(select);
         }
     }
+
 }

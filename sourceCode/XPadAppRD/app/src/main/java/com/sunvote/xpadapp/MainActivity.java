@@ -1,5 +1,6 @@
 package com.sunvote.xpadapp;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -7,19 +8,26 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sunvote.udptransfer.Config;
 import com.sunvote.udptransfer.UDPModule;
 import com.sunvote.util.LogUtil;
 import com.sunvote.xpadapp.base.BaseActivity;
@@ -123,6 +131,8 @@ public class MainActivity extends BaseActivity implements ComListener {
     private final int Msg_HideFirmUpdate = 54;
 
     public BroadcastReceiver batteryLevelRcvr;
+    private static final int STORAGE_REQUEST_CODE = 102;
+    private static final int WRITE_SETTINGS_CODE = 103 ;
 
     // WifiManager wifiManager;
     // WifiConnector wac;
@@ -181,16 +191,19 @@ public class MainActivity extends BaseActivity implements ComListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Window window = getWindow();
-        // WindowManager.LayoutParams params = window.getAttributes();
-        // params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION ;
-        // window.setAttributes(params);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
 
         setContentView(R.layout.activity_main);
         terminalId = (TextView) findViewById(R.id.terminal_id);
 
         mOnlineInfo = new OnLineInfo();
         mOnlineInfo.onLine = 0;
+        checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_REQUEST_CODE);
+        checkSelfPermission(Manifest.permission.WRITE_SETTINGS,WRITE_SETTINGS_CODE);
 
         presenter = new XPadPresenter(this);
         setOnlineFragment();
@@ -299,7 +312,7 @@ public class MainActivity extends BaseActivity implements ComListener {
             int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | 0x00002000;
             decorView.setSystemUiVisibility(uiOptions);
         }
-        XPadSystem.setNavgationGone(this);
+//        XPadSystem.setNavgationGone(this);
     }
 
     public void showBottomUIMenu() {
@@ -316,7 +329,7 @@ public class MainActivity extends BaseActivity implements ComListener {
                     & ~0x00002000;
             decorView.setSystemUiVisibility(uiOptions);
         }
-        XPadSystem.setNavgationVisible(this);
+//        XPadSystem.setNavgationVisible(this);
     }
 
     @Override
@@ -702,7 +715,7 @@ public class MainActivity extends BaseActivity implements ComListener {
             transaction.add(R.id.frame_content, showIdFragment);
             transaction.addToBackStack("showIdFragment");
         }else{
-            transaction.replace(R.id.frame_content, showIdFragment);
+//            transaction.replace(R.id.frame_content, showIdFragment);
         }
         transaction.commitAllowingStateLoss();
     }
@@ -780,9 +793,9 @@ public class MainActivity extends BaseActivity implements ComListener {
 //			Toast.makeText(this, "wifiPwd is null	", Toast.LENGTH_SHORT).show();
 //			return;
         }
-        if (serverIp == null || serverIp.length() == 0) {
+        if (TextUtils.isEmpty(serverIp)) {
 //			Toast.makeText(this, "serverIp is null	", Toast.LENGTH_SHORT).show();
-            return;
+            serverIp = Config.getInstance().serverIP;
         }
         // if(serverPort == 0){
         // Toast.makeText(this, "serverPort is 0 ", Toast.LENGTH_SHORT);
@@ -1580,5 +1593,19 @@ public class MainActivity extends BaseActivity implements ComListener {
         // 执行的数据类型
         intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         startActivity(intent);
+    }
+
+    public boolean checkSelfPermission(String permission, int requestCode) {
+        LogUtil.i(getClass().getSimpleName(), "checkSelfPermission " + permission + " " + requestCode);
+        if (ContextCompat.checkSelfPermission(this,
+                permission)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{permission},
+                    requestCode);
+            return false;
+        }
+        return true;
     }
 }

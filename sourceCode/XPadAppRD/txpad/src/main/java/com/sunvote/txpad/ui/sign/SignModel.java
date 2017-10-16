@@ -9,6 +9,7 @@ import com.sunvote.util.SPUtils;
 
 import java.util.List;
 
+import cn.sunars.sdk.SunARS;
 import rx.Observable;
 
 /**
@@ -24,8 +25,7 @@ public class SignModel extends BaseModel {
         return apiService.getStudentList(classId).compose(BaseModel.<ResponseDataBean<List<Student>>>io_main());
     }
 
-    public void startSign(IKeyEventCallBack keyEventCallBack,int mode){
-        BaseStationManager.getInstance().registerKeyEventCallBack(keyEventCallBack);
+    public void startSign(int mode){
         if(mode == 1){
             BaseStationManager.getInstance().voteStartSign("" + mode);
         }else if(mode == 2){
@@ -33,10 +33,12 @@ public class SignModel extends BaseModel {
         }
     }
 
-    public void stopSign(IKeyEventCallBack keyEventCallBack){
-        BaseStationManager.getInstance().unRegisterKeyEventCallBack(keyEventCallBack);
-        BaseStationManager.getInstance().voteStop();
-        BaseStationManager.getInstance().voteStopBackgroundSignIn();
+    public void stopSign(int mode){
+        if(mode == 1){
+            BaseStationManager.getInstance().voteStop();
+        }else{
+            BaseStationManager.getInstance().voteStopBackgroundSignIn();
+        }
     }
 
     public void startExam(){
@@ -45,6 +47,20 @@ public class SignModel extends BaseModel {
 
     public void stopExam(){
 
+    }
+
+    public boolean isSignMode(){
+        if(BaseStationManager.getInstance().getBaseStationInfo().getMode() == SunARS.VoteType_Signin){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isSignBackground(){
+        if(BaseStationManager.getInstance().getBaseStationInfo().isBackgroundSign()){
+            return true;
+        }
+        return false;
     }
 
 }

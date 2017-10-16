@@ -1,20 +1,29 @@
 package com.sunvote.txpad.base;
 
-import android.app.Activity;
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sunvote.sunvotesdk.BaseStationManager;
-import com.sunvote.sunvotesdk.basestation.BaseStationInfo;
+import com.sunvote.txpad.ApplicationDataHelper;
+import com.sunvote.txpad.ApplicationDataManager;
+import com.sunvote.txpad.Constants;
 import com.sunvote.txpad.R;
-import com.sunvote.txpad.ui.manager.BaseStationManagerModel;
+import com.sunvote.util.LogUtil;
+import com.sunvote.util.SPUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Elvis on 2017/9/6.
@@ -22,7 +31,6 @@ import com.sunvote.txpad.ui.manager.BaseStationManagerModel;
  * 版权所有：长沙中天电子设计开发有限公司
  * Description:平板模块键盘投票功能模块
  *
- * 登录界面
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -31,16 +39,26 @@ public abstract class BaseActivity extends AppCompatActivity {
     private TextView frequency;
     private TextView connectState ;
 
+    private View back;
+    private static List<BaseActivity> activities = new ArrayList<>();
+
+    private static final int STORAGE_REQUEST_CODE = 102;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(getLayoutID());
-        initMVP();
+        checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_REQUEST_CODE);
         initView();
+        initMVP();
         initData();
         initListener();
         initBootview();
+        getBasePresent().onCreate(this);
+        if(!activities.contains(this)){
+            activities.add(this);
+        }
     }
 
     /**
@@ -123,6 +141,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         keyboard = getViewById(R.id.home_fragment_s52plus);
         frequency = getViewById(R.id.home_fragment_frequency);
         connectState = getViewById(R.id.connect_state);
+        back = getViewById(R.id.back);
     }
 
     /**
@@ -156,14 +175,23 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }
 
-        if(BaseStationManager.getInstance().getBaseStationInfo().isConnected()){
-            if(connectState != null){
-                connectState.setText("已连接");
+        if(connectState != null){
+            if(BaseStationManager.getInstance().getBaseStationInfo().isConnected()) {
+                connectState.setText(R.string.basestation_manager_connected);
+            }else {
+                connectState.setText(R.string.basestation_manager_no_connect);
             }
-        }else{
-            if(connectState != null){
-                connectState.setText("未连接");
-            }
+        }
+
+        if(back != null){
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!onBack()){
+                        finish();
+                    }
+                }
+            });
         }
     }
 
@@ -199,5 +227,63 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initBootviewData();
+        String replace = SPUtils.getString(this, Constants.SAVE_LOCAL_KEYBORAD_REPLACE,"");
+        Map<Integer,Integer> ret = ApplicationDataHelper.getInstance().getKeyBoardReplace(replace);
+        ApplicationDataManager.getInstance().setKeyBoardReplace(ret);
+    }
+
+    public abstract BasePresent getBasePresent();
+
+    @Override
+    protected void onDestroy() {
+        BasePresent present = getBasePresent();
+        if(present != null){
+            present.onDestroy();
+        }
+        activities.remove(this);
+        super.onDestroy();
+    }
+
+    public boolean checkSelfPermission(String permission, int requestCode) {
+        LogUtil.i(getClass().getSimpleName(), "checkSelfPermission " + permission + " " + requestCode);
+        if (ContextCompat.checkSelfPermission(this,
+                permission)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{permission},
+                    requestCode);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case STORAGE_REQUEST_CODE:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    Toast.makeText(this,"无法获取存储权限，功能受控",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+        }
+    }
+
+    public void exit(){
+        for(BaseActivity activity:activities){
+            if(activity != null){
+                activity.finish();
+            }
+        }
+        activities.clear();
+    }
+
+    public boolean onBack(){
+        return false;
     }
 }

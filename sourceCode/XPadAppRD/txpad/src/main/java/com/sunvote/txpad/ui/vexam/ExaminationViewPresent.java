@@ -18,39 +18,39 @@ import java.util.List;
  */
 public class ExaminationViewPresent extends BasePresent<ExaminationViewModel,IViewExaminationView> {
 
-    public void getPaperList(String userId,String subjectId){
-        model.getPaperList(userId,subjectId).subscribe(new BaseSubscriber<ResponseDataBean<List<Paper>>>(){
+    public void getPaperList(String userId,String subjectId,String paperType){
+        mRxManager.add(model.getPaperList(userId,subjectId,paperType).subscribe(new BaseSubscriber<ResponseDataBean<List<Paper>>>(){
             @Override
             public void onNext(ResponseDataBean<List<Paper>> listResponseDataBean) {
                 super.onNext(listResponseDataBean);
             }
-        });
+        }));
 
 
     }
 
-    public void getPaperQuestion(final String paperId){
+    public void getPaperQuestion(final String paperId,final String paperType){
         if(paperId != null) {
-            ResponseDataBean<List<Question>> cache = (ResponseDataBean<List<Question>>) FileCache.getFileCache().readObject("getPaperQuestion&" + paperId);
+            ResponseDataBean<List<Question>> cache = (ResponseDataBean<List<Question>>) FileCache.getFileCache().readObject("getPaperQuestion&" + paperId + "&" + paperType);
             if (cache != null) {
                 List<Question> questions = cache.getData();
                 if(questions!= null){
                     view.showPaper(questions);
                 }
             }
-            model.getPaperQuestion(paperId).subscribe(new BaseSubscriber<ResponseDataBean<List<Question>>>() {
+            mRxManager.add(model.getPaperQuestion(paperId,paperType).subscribe(new BaseSubscriber<ResponseDataBean<List<Question>>>() {
                 @Override
                 public void onNext(ResponseDataBean<List<Question>> listResponseDataBean) {
                     super.onNext(listResponseDataBean);
                     if(listResponseDataBean != null) {
-                        FileCache.getFileCache().saveObject("getPaperQuestion&" + paperId, listResponseDataBean);
+                        FileCache.getFileCache().saveObject("getPaperQuestion&" + paperId + "&" + paperType, listResponseDataBean);
                         List<Question> questions = listResponseDataBean.getData();
                         if(questions!= null){
                             view.showPaper(questions);
                         }
                     }
                 }
-            });
+            }));
         }else{
 //            view.noPaper();
         }

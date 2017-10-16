@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textSize="@dimen/big_text_p5"
+            android:textSize="@dimen/big_text_p4"
             android:text="2017年5月27日英语课前随堂测"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:id="@+id/create_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_p6"
+                android:textSize="@dimen/big_text_p5"
                 android:text="2017-06-27 15:03:23"/>
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:textSize="@dimen/big_text_p6"
+                android:textSize="@dimen/big_text_p5"
                 android:text="5题"/>
 
         </LinearLayout>
@@ -47,7 +47,7 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/follow_up_test"
-        android:layout_width="100dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:background="@drawable/rancnge_background"
@@ -57,19 +57,19 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/follow_up_survey"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/big_text_p4"
+            android:textSize="@dimen/big_text_p5"
             android:text="@string/examination_view_follow_up_test" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/phase_test"
-        android:layout_width="100dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:background="@drawable/rancnge_background"
@@ -79,21 +79,22 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/phase_test"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/big_text_p4"
+            android:textSize="@dimen/big_text_p5"
             android:text="@string/examination_view_phase_test" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/preview"
-        android:layout_width="100dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/rancnge_background"
         android:orientation="vertical">
 
@@ -101,13 +102,13 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/preview"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/big_text_p4"
+            android:textSize="@dimen/big_text_p5"
             android:text="@string/examination_view_preview" />
     </LinearLayout>
 

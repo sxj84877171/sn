@@ -156,4 +156,7 @@
     <color name="text_sky_gray">#666666</color>
     <color name="bg_color_gray">#F0F0F0</color>
     <color name="textview_choose_color">#FF9800</color>
+    <color name="textview_item_student_title">#50B4C8</color>
+    <color name="score_book_chooseed">#eb5648</color>
+    <color name="score_book_paper_title">#ebfbfc</color>
 </resources>

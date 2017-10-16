@@ -1,5 +1,6 @@
 package com.sunvote.txpad.ui.fragment.manager;
 
+import com.sunvote.sunvotesdk.BaseStationManager;
 import com.sunvote.txpad.base.BaseFragmentPresent;
 import com.sunvote.txpad.base.BaseSubscriber;
 
@@ -19,27 +20,36 @@ public class BaseStationFragmentPresent extends BaseFragmentPresent<BaseStationF
 
     public void setFreeMode(){
         view.showProgress();
-        model.writeMode(2).subscribe(new BaseSubscriber<String>(){
+        mRxManager.add(model.writeMode(2).subscribe(new BaseSubscriber<String>(){
             @Override
             public void onNext(String s) {
                 view.showKeyPadWorkingMode(s);
                 view.dismissProgress();
             }
-        });
+        }));
     }
 
     public void setFixedMode(){
         view.showProgress();
-        model.writeMode(1).subscribe(new BaseSubscriber<String>(){
+        mRxManager.add(model.writeMode(1).subscribe(new BaseSubscriber<String>(){
             @Override
             public void onNext(String s) {
                 view.showKeyPadWorkingMode(s);
                 view.dismissProgress();
             }
-        });
+        }));
     }
 
     public void deviceCheck(){
         view.showCheckFragment();
+    }
+
+    public void connectAgain(){
+        if(!BaseStationManager.getInstance().getBaseStationInfo().isConnected()){
+            view.showProgress();
+            BaseStationManager.getInstance().init();
+            view.refeash();
+        }
+        view.dismissProgress();
     }
 }

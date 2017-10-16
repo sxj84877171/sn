@@ -1,5 +1,6 @@
 package com.sunvote.txpad.ui.sign;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -7,9 +8,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.sunvote.sunvotesdk.BaseStationManager;
+import com.sunvote.txpad.ApplicationDataHelper;
 import com.sunvote.txpad.Constants;
 import com.sunvote.txpad.R;
 import com.sunvote.util.SPUtils;
+
+import java.util.Map;
 
 /**
  * Created by Elvis on 2017/9/20.
@@ -18,6 +22,10 @@ import com.sunvote.util.SPUtils;
  * Description: 易测（ETest）
  */
 public class SettingPanel {
+
+    interface OnSaveClickListener{
+        void onSaveClick(View view,int type, int time ,int chooseType,int oldKeyboard,int newKeyboard);
+    }
 
     private View settingPanel;
 
@@ -42,6 +50,12 @@ public class SettingPanel {
     private int current = 0;
 
     private SettingPagerAdapter pagerAdapter;
+
+    private OnSaveClickListener onSaveClickListener;
+
+    public void setOnSaveClickListener(OnSaveClickListener onSaveClickListener) {
+        this.onSaveClickListener = onSaveClickListener;
+    }
 
     public <T extends View> T findViewById(int resId) {
         return (T) settingPanel.findViewById(resId);
@@ -156,16 +170,20 @@ public class SettingPanel {
     }
 
     public void saveDataToLocal(){
+        int times = pagerAdapter.getMinuteTime() * 60 + pagerAdapter.getSecondTime();
         switch (current){
             case 0:
-                int times = pagerAdapter.getMinuteTime() * 60 + pagerAdapter.getSecondTime();
                 SPUtils.putInt(settingPanel.getContext(), Constants.SAVE_EXAM_TIME_KEY,times);
                 break;
             case 1:
                 SPUtils.putInt(settingPanel.getContext(), Constants.SAVE_SIGN_MODE_KEY,pagerAdapter.getSignType());
                 break;
             case 2:
+
                 break;
+        }
+        if(onSaveClickListener != null){
+            onSaveClickListener.onSaveClick(settingPanel,current,times,pagerAdapter.getSignType(),pagerAdapter.getOldKeyBoardID(),pagerAdapter.getNewKayBoardID());
         }
     }
 }

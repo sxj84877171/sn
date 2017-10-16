@@ -1,8 +1,14 @@
 package com.sunvote.txpad.bean;
 
+import android.text.TextUtils;
+
 import com.sunvote.sunvotesdk.basestation.KeyBoard;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Elvis on 2017/9/15.
@@ -23,6 +29,9 @@ public class Student implements Serializable {
     private int studentNo;
     private String studentName;
     private KeyBoard keyBoard;
+    private boolean isSignReady = false;
+
+    private List<StudentQuestionAnswer> studentQuestionAnswerList = new ArrayList<>();
 
     public String getStudentId() {
         return studentId;
@@ -57,5 +66,54 @@ public class Student implements Serializable {
 
     public void setKeyBoard(KeyBoard keyBoard) {
         this.keyBoard = keyBoard;
+    }
+
+    public List<StudentQuestionAnswer> getStudentQuestionAnswerList() {
+        return studentQuestionAnswerList;
+    }
+
+    public void setStudentQuestionAnswerList(List<StudentQuestionAnswer> studentQuestionAnswerList) {
+        this.studentQuestionAnswerList = studentQuestionAnswerList;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(studentId != null && obj instanceof Student){
+            return studentId.equals(((Student) obj).getStudentId());
+        }
+        return super.equals(obj);
+    }
+
+    public String getAnswerProgress(){
+        if(studentQuestionAnswerList != null){
+            int reply = 0 ;
+            for(StudentQuestionAnswer studentQuestionAnswer : studentQuestionAnswerList){
+                if(!TextUtils.isEmpty(studentQuestionAnswer.getAnswer())){
+                    reply ++ ;
+                }
+            }
+            return progressText(reply,studentQuestionAnswerList.size());
+        }
+        return "0%" ;
+    }
+
+    private String progressText(int reply,int all){
+        float f1 = reply;
+        float f2 = all ;
+        if(f2 == 0){
+            f2 = 1;
+        }
+        float f3 = (f1/f2);
+        f3 = f3 + 0.005f ;
+        int i3 = (int)(f3*100);
+        return i3 + "%";
+    }
+
+    public boolean isSignReady() {
+        return isSignReady;
+    }
+
+    public void setSignReady(boolean signReady) {
+        isSignReady = signReady;
     }
 }

@@ -36,6 +36,27 @@ public class PaperListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addPaperList(List<Paper> paperList){
+        if(this.paperList == null){
+            this.paperList = new ArrayList<>();
+        }
+        for(Paper temp:paperList){
+            if(!isInList(temp)){
+                this.paperList.add(temp);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    private boolean isInList(Paper paper){
+        for(Paper paper1 : paperList){
+            if(paper1.getPaperId().equals(paper.getPaperId())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public int getCount() {
         return paperList.size();
@@ -101,6 +122,14 @@ public class PaperListAdapter extends BaseAdapter {
             public void onClick(View view) {
                 if(onItemTypeClickListener != null){
                     onItemTypeClickListener.onClick(paper1,i,FOLLOWUPTEST);
+                }
+            }
+        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(onItemTypeClickListener != null){
+                    onItemTypeClickListener.onClick(paper1,i,PREVIEW);
                 }
             }
         });

@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,11 +13,16 @@ import com.sunvote.sunvotesdk.BaseStationManager;
 import com.sunvote.txpad.ApplicationData;
 import com.sunvote.txpad.R;
 import com.sunvote.txpad.base.BaseActivity;
+import com.sunvote.txpad.base.BasePresent;
+import com.sunvote.txpad.cache.FileCache;
 import com.sunvote.txpad.ui.fragment.dce_check.DeviceCheckFragment;
 import com.sunvote.txpad.ui.fragment.exam.PaperActivityFragment;
 import com.sunvote.txpad.ui.fragment.manager.BaseStationManagerFragment;
+import com.sunvote.txpad.ui.fragment.scorebook.ScoreBookFragment;
+import com.sunvote.txpad.ui.login.LoginActivity;
 import com.sunvote.txpad.ui.namelist.NameListActivity;
 import com.sunvote.txpad.ui.vexam.ExaminationViewActivity;
+import com.sunvote.util.LogUtil;
 
 /**
  * Created by Elvis on 2017/9/18.
@@ -25,15 +32,20 @@ import com.sunvote.txpad.ui.vexam.ExaminationViewActivity;
  */
 public class HomeActivity extends BaseActivity implements IHomeActivityView{
 
+    public static final String TAG = "HomeActivity" ;
+
     private View managerView ;
     private View nameLinear;
     private View pageLinear;
     private View messageLinear;
+    private View scoreBooklinear;
+    private View header;
     private TextView username;
 
     private PaperActivityFragment paperActivityFragment;
     private BaseStationManagerFragment managerFragment;
     private DeviceCheckFragment deviceCheckFragment;
+    private ScoreBookFragment scoreBookFragment;
     private Fragment currentFragment ;
     private HomePresent present;
 
@@ -51,6 +63,11 @@ public class HomeActivity extends BaseActivity implements IHomeActivityView{
     }
 
     @Override
+    public BasePresent getBasePresent() {
+        return present;
+    }
+
+    @Override
     protected void onDestroy() {
         present.onDestroy();
         super.onDestroy();
@@ -62,7 +79,9 @@ public class HomeActivity extends BaseActivity implements IHomeActivityView{
         nameLinear = getViewById(R.id.name_linear);
         pageLinear = getViewById(R.id.page_linear);
         messageLinear = getViewById(R.id.message_linear);
+        scoreBooklinear = getViewById(R.id.score_book_linear);
         username = getViewById(R.id.username);
+        header = getViewById(R.id.header);
     }
 
     @Override
@@ -94,6 +113,13 @@ public class HomeActivity extends BaseActivity implements IHomeActivityView{
         }
     }
 
+    @Override
+    public void gotoLoginPage() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        exit();
+    }
+
 
     @Override
     public void initListener() {
@@ -122,6 +148,22 @@ public class HomeActivity extends BaseActivity implements IHomeActivityView{
         messageLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showToast("请期待");
+            }
+        });
+
+        scoreBooklinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               showScoreBookFragment();
+            }
+        });
+
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FileCache.getFileCache().deleteCatch("LoginInfo");
+                gotoLoginPage();
             }
         });
     }
@@ -141,6 +183,21 @@ public class HomeActivity extends BaseActivity implements IHomeActivityView{
         }
     }
 
+    @Override
+    public void showScoreBookFragment(){
+        if(currentFragment == null || currentFragment != scoreBookFragment){
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction transaction = fm.beginTransaction();
+            if(scoreBookFragment == null){
+                scoreBookFragment = new ScoreBookFragment();
+            }
+            transaction.replace(R.id.content, scoreBookFragment);
+            transaction.commit();
+            currentFragment = scoreBookFragment;
+        }
+    }
+
+    @Override
     public void showDevideCheckFragment(){
         if(currentFragment == null || currentFragment != deviceCheckFragment) {
             FragmentManager fm = getFragmentManager();
@@ -152,5 +209,24 @@ public class HomeActivity extends BaseActivity implements IHomeActivityView{
             transaction.commit();
             currentFragment = deviceCheckFragment;
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getScreenDensity_ByWindowManager();
+    }
+
+    public void getScreenDensity_ByWindowManager(){
+        DisplayMetrics mDisplayMetrics = new DisplayMetrics();//屏幕分辨率容器
+        getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
+        int width = mDisplayMetrics.widthPixels;
+        int height = mDisplayMetrics.heightPixels;
+        float density = mDisplayMetrics.density;
+        int densityDpi = mDisplayMetrics.densityDpi;
+//        showToast("Screen Ratio: ["+width+"x"+height+"],density="+density+",densityDpi="+densityDpi);
+//        showToast("Screen mDisplayMetrics: "+mDisplayMetrics);
+        LogUtil.d(TAG,"Screen Ratio: ["+width+"x"+height+"],density="+density+",densityDpi="+densityDpi);
+        LogUtil.d(TAG,"Screen mDisplayMetrics: "+mDisplayMetrics);
     }
 }

@@ -1,5 +1,11 @@
 package com.sunvote.xpadcomm;
 
+import android.os.Environment;
+import android.util.Log;
+
+import com.sunvote.util.LogUtil;
+import com.sunvote.xpadapp.utils.FileUtil;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -8,11 +14,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
-
-import android.content.Context;
-import android.os.Environment;
-import android.util.Log;
 
 public class FileRecver {
 	private String TAG = "FileRecver";
@@ -53,10 +54,6 @@ public class FileRecver {
 		this.ip = ip;
 		this.port = port;
 		this.listener = recvInterface;
-
-	}
-
-	public void tryGetMeetingFiles(int keyId) {
 		File file = new File(filePath);
 		if (!file.exists()) {
 			file.mkdir();
@@ -64,52 +61,89 @@ public class FileRecver {
 				Log.d(TAG, "create dir ok!");
 			}
 		}
+	}
+
+	public void tryGetMeetingFiles(int keyId) {
 		keypadID = String.valueOf(keyId);
 		if (createConnection()) {
 			sendMessage(keyId + "\n");
+			lastReceveLength = 0;
+			passedlen = 0 ;
+			CheckReceveThread checkReceveThread = new CheckReceveThread();
+			checkReceveThread.start();
+
 			getMeetingFiles();
+
 		}
 	}
+
+	public long lastReceveLength;
+	private int compareCount;
+	private class  CheckReceveThread  extends  Thread{
+		public void run() {
+			while (true) {
+				try {
+					Thread.sleep(1000);
+					if(lastReceveLength != passedlen ){
+						lastReceveLength = passedlen;
+						//sendMessage(keypadID + ":recv"+lastReceveLength+"\n");
+						LogUtil.d(TAG,"CheckReceveThread:check ok!");
+						compareCount = 0;
+					}else{
+						compareCount ++;
+						if(compareCount == 60){
+							compareCount = 0;
+							LogUtil.d(TAG,"CheckReceveThread:60s no response ,fail!");
+							shutDownConnection();
+							Thread.sleep(1000);
+							listener.onDownloadDataError();
+							break;
+						}
+					}
+
+
+
+					if (passedlen > 0 && passedlen == fileLen) {
+						LogUtil.d(TAG,"CheckReceveThread:success!");
+						break;
+					}
+
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+	};
 
 	public boolean createConnection() {
-		try {
-			if(socket != null) {
-				socket.close();
-				socket = null;
+		for(int i=0;i<3	;i++) {
+			try {
+				socket = new Socket(ip, port);
+				return true;
+			} catch (Exception e) {
+				listener.onConnectServerError();
+				e.printStackTrace();
+				if (socket != null) {
+					try {
+						socket.close();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+
 			}
 
-			socket = new Socket(ip, port);
-			return true;
-		} catch (UnknownHostException e) {
-			listener.onConnectServerError();
-			e.printStackTrace();
-			if (socket != null) {
-				try {
-					socket.close();
-					socket = null;
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-			return false;
-		} catch (Exception e) {
-			listener.onConnectServerError();
-			e.printStackTrace();
-			if (socket != null) {
-				try {
-					socket.close();
-					socket = null;
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-			return false;
-		}finally {
 
 		}
+		return false;
 	}
+
 
 	public void sendMessage(String sendMessage) {
 		try {
@@ -134,15 +168,18 @@ public class FileRecver {
 		}
 	}
 
+	public long passedlen = 0;
+	public long fileLen = 0;
+
 	public void getMeetingFiles() {
 		DataInputStream inputStream = null;
 		inputStream = getDataInStream();
 		try {
 			String savePath = null;
-			int bufferSize = 4096;// 8192
+			int bufferSize = 512000;// 8192
 			byte[] buf = new byte[bufferSize];
-			long passedlen = 0;
-			long len = 0;
+
+
 			long tmpTime = System.currentTimeMillis();
 			String strln = null;
 			while (strln == null) {
@@ -151,14 +188,14 @@ public class FileRecver {
 					Log.d(TAG, strln);
 					String[] ary = strln.split(",");
 					if (ary.length == 2) {
-						len = Long.parseLong(ary[0]);
+						fileLen = Long.parseLong(ary[0]);
 						fileName = ary[1];
 						savePath = filePath + "/" + fileName;
 						break;
 					}
 				}
 				if (System.currentTimeMillis() - tmpTime > 20 * 1000) {
-					Log.e(TAG, "get file name and len time out!");
+					Log.e(TAG, "get file name and fileLen time out!");
 					break;
 				}
 				// strln = inputStream.readLine();
@@ -182,22 +219,26 @@ public class FileRecver {
 			while (true) {
 				int read = 0;
 				if (inputStream != null) {
+					LogUtil.d(TAG, "inputStream.read");
 					read = inputStream.read(buf);
+					LogUtil.d(TAG, "inputStream.read len:"+ read);
 				}
 				passedlen += read;
 				if (read == -1) {
 					break;
 				}
-				long per = passedlen * 100 / len;
+				long per = passedlen * 100 / fileLen;
 				Log.d(TAG, "file recv" + per + "%/n");
+				LogUtil.d(TAG, "file recv" + per + "%/n");
 				if (per < 0) {
 					Log.d(TAG, "error");
 				}
 				listener.onDownload(per);
+
 				if(read>0) {
 					fileOut.write(buf, 0, read);
 				}
-				if (passedlen == len) {
+				if (passedlen == fileLen) {
 					break;
 				}
 			}
@@ -206,15 +247,36 @@ public class FileRecver {
 			fileOut.close();
 			String outDirName;
 			try {
-				Log.d(TAG, "unzip");
+
 				if (fileName.endsWith(".zip")) {
 					outDirName = fileName.substring(0, fileName.length() - 4);
 					String uzipDirPath = filePath + "/" + outDirName;
 					File unzipDir = new File(uzipDirPath);
-					if (!unzipDir.exists()) {
-						unzipDir.mkdir();
+					if (unzipDir.exists()) {
+						try {
+							LogUtil.d(TAG, "clear dir");
+							FileUtil.deleteFileInDir(unzipDir);
+						}catch (Exception e){
+							e.printStackTrace();
+						}
+
+					}else{
+						boolean ret=false;
+						try {
+							ret = unzipDir.mkdir();
+						} catch (Exception e){
+							e.printStackTrace();
+						}
+						if(ret) {
+							LogUtil.d(TAG, "createFile Ok, unzip!");
+						}else{
+							LogUtil.d(TAG,"createFile fail !"+ uzipDirPath);
+						}
 					}
+
+					Log.d(TAG, "unzip");
 					AntZipUtil.unZip(filePath + "/" + fileName, uzipDirPath);
+					Log.d(TAG, "unzip ok");
 				}
 
 			} catch (Exception e) {
@@ -269,7 +331,6 @@ public class FileRecver {
 				try {
 					getMessageStream.close();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -287,10 +348,8 @@ public class FileRecver {
 			}
 			if (socket != null) {
 				socket.close();
-				socket = null;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

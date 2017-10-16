@@ -1,5 +1,7 @@
 package com.sunvote.txpad.base;
 
+import android.content.Context;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -27,6 +29,8 @@ public class BasePresent<M extends BaseModel,V extends BaseView> {
 
     protected V view ;
 
+    public RxManager mRxManager = new RxManager();
+
     public void setView(V view) {
         this.view = view;
     }
@@ -36,4 +40,12 @@ public class BasePresent<M extends BaseModel,V extends BaseView> {
     }
 
     public void init(){}
+
+    public void onDestroy(){
+        mRxManager.clear();
+    }
+
+    public void onCreate(Context context){
+
+    }
 }

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.sunvote.txpad.R;
 import com.sunvote.util.LogUtil;
 
 import java.io.FileNotFoundException;
@@ -42,13 +43,17 @@ public class HtmlImageGetter implements Html.ImageGetter {
     public Drawable getDrawable(String s) {
         LogUtil.i("HtmlImageGetter","HtmlImageGetter,url:" + s);
         final LevelListDrawable levelListDrawable = new LevelListDrawable();
-        Glide.with(context).load(s).asBitmap().into(new SimpleTarget<Bitmap>() {
+       /* Glide.with(context).load(s).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 Drawable drawable =new BitmapDrawable(resource);
                 levelListDrawable.addLevel(0,0,drawable);
             }
         });
+        return levelListDrawable;*/
+        Drawable drawable = context.getResources().getDrawable(R.mipmap.ic_launcher);
+        levelListDrawable.addLevel(0,0,drawable);
+        levelListDrawable.setBounds(0, 0, 100, 100);
         return levelListDrawable;
     }
 

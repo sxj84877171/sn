@@ -20,8 +20,8 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:layout_centerInParent="true"
-            android:text="中南大学附属第二中学  高一  314班"
-            android:textSize="@dimen/big_text_p1" />
+            android:text=""
+            android:textSize="@dimen/big_text_p2" />
 
         <TextView
             android:id="@+id/class_students_num"
@@ -33,7 +33,7 @@
             android:layout_centerVertical="true"
             android:gravity="center"
             android:text="人数：38人"
-            android:textSize="@dimen/big_text_p3" />
+            android:textSize="@dimen/big_text_p4" />
     </RelativeLayout>
 
     <LinearLayout
@@ -46,172 +46,196 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/examination_view_courses_chinese"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:orientation="horizontal"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:src="@drawable/chinese"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_p3"
+                android:textSize="@dimen/big_text_p4"
+                android:layout_weight="1"
                 android:text="@string/examination_view_courses_chinese"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/examination_view_courses_match"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:orientation="horizontal"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:src="@drawable/match"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_p3"
+                android:textSize="@dimen/big_text_p4"
+                android:layout_weight="1"
                 android:text="@string/examination_view_courses_match"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/examination_view_courses_english"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:orientation="horizontal"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:src="@drawable/english"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_p3"
+                android:textSize="@dimen/big_text_p4"
+                android:layout_weight="1"
                 android:text="@string/examination_view_courses_english"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/examination_view_courses_physics"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:orientation="horizontal"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:src="@drawable/physics"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_p3"
+                android:textSize="@dimen/big_text_p4"
+                android:layout_weight="1"
                 android:text="@string/examination_view_courses_physics"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/examination_view_courses_chemistry"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:orientation="horizontal"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:src="@drawable/chemistry_selected"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_p3"
+                android:textSize="@dimen/big_text_p4"
+                android:layout_weight="1"
                 android:text="@string/examination_view_courses_chemistry"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/examination_view_courses_biology"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/biology"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_p3"
+                android:textSize="@dimen/big_text_p4"
                 android:text="@string/examination_view_courses_biology"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/examination_view_courses_history"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/history"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_p3"
+                android:textSize="@dimen/big_text_p4"
                 android:text="@string/examination_view_courses_history"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/examination_view_courses_geography"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/geography_selected"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_p3"
+                android:textSize="@dimen/big_text_p4"
                 android:text="@string/examination_view_courses_geography"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/examination_view_courses_politics"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/politics"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/big_text_p3"
+                android:textSize="@dimen/big_text_p4"
                 android:text="@string/examination_view_courses_politics"/>
 
         </LinearLayout>
@@ -249,17 +273,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:padding="5dp"
                 android:background="@drawable/rancnge_background">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/filter_unselected"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="@string/home_fragment_fill_choose"
-                    android:textSize="@dimen/big_text_p3" />
+                    android:paddingRight="10dp"
+                    android:textSize="@dimen/big_text_p4" />
 
             </LinearLayout>
 
@@ -269,19 +299,25 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/rancnge_background_gray"
+                android:padding="5dp"
+                android:background="@drawable/input_background"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/add"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/home_fragment_new_parper"
                     android:textColor="@color/text_blank"
-                    android:textSize="@dimen/big_text_p3" />
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="@dimen/big_text_p4" />
             </LinearLayout>
 
 

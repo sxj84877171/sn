@@ -8,6 +8,14 @@ package com.sunvote.sunvotesdk.basestation;
  */
 public class BaseStationInfo {
 
+    public static final int CONNECT_TYPE_TCP = 2;
+    public static final int CONNECT_TYPE_SER = 4 ;
+    public static final int CONNECT_TYPE_BLE = 1 ;
+
+    public static final String CONNECT_INFO_TCP = "10.10.100.254" ;
+    public static final String CONNECT_INFO_BLE = "" ;
+    public static final String CONNECT_INFO_SER = "/dev/ttyMT1" ;
+
     /**
      * “Mode1， Mode2， Mode3， Mode4，
      Mode5， Mode6”
@@ -37,7 +45,7 @@ public class BaseStationInfo {
     /**
      * 连接类型
      */
-    private int connectType = 4;
+    private int connectType = CONNECT_TYPE_SER;
     /**
      * 基站ID
      */
@@ -45,7 +53,7 @@ public class BaseStationInfo {
     /**
      * 连接信息
      */
-    private String connectInfo = "/dev/ttyMT1";
+    private String connectInfo = CONNECT_INFO_SER;
 
     /**
      * 基站名称

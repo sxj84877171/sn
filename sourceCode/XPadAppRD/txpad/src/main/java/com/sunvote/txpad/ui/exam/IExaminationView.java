@@ -2,6 +2,7 @@ package com.sunvote.txpad.ui.exam;
 
 import com.sunvote.txpad.base.BaseView;
 import com.sunvote.txpad.bean.Question;
+import com.sunvote.txpad.bean.Student;
 
 import java.util.List;
 
@@ -18,4 +19,22 @@ public interface IExaminationView extends BaseView {
     public void showTime(String time);
 
     public void showProgress(int reply,int all);
+
+    public void changeView();
+
+    public void startExam();
+
+    public void stopExam();
+
+    public void showAnswerInfo(int answered,int answering,int unAnswered,int unsigned);
+
+    public void showStudent(List<Student> list);
+
+    public void showStudentProgress();
+
+    public void showStoping();
+
+    public void showStoped();
+
+    public void showSuccess();
 }

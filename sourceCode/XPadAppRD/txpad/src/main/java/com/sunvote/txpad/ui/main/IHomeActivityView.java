@@ -13,4 +13,10 @@ public interface IHomeActivityView extends BaseView {
     public void showPaperFragment();
 
     public void showManagerFrament();
+
+    public void showDevideCheckFragment();
+
+    public void showScoreBookFragment();
+
+    public void gotoLoginPage();
 }

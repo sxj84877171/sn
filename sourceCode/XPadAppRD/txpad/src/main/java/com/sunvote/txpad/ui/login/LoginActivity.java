@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.sunvote.txpad.R;
 import com.sunvote.txpad.base.BaseActivity;
+import com.sunvote.txpad.base.BasePresent;
 import com.sunvote.txpad.ui.main.HomeActivity;
 
 /**
@@ -35,7 +36,14 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         loginPresent = new LoginPresent();
         loginPresent.setModel(new LoginModel());
         loginPresent.setView(this);
+        loginPresent.init();
     }
+
+    @Override
+    public BasePresent getBasePresent() {
+        return loginPresent;
+    }
+
     @Override
     public void initView() {
         usernameEditText = getViewById(R.id.username);
@@ -75,6 +83,11 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     public void showPasswordError() {
         showToast(R.string.login_password_invald);
+    }
+
+    @Override
+    public void initUsername(String username) {
+        usernameEditText.setText(username);
     }
 
 }

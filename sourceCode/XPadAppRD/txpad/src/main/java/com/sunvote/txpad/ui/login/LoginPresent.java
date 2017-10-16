@@ -7,6 +7,9 @@ import com.sunvote.txpad.base.BasePresent;
 import com.sunvote.txpad.base.BaseSubscriber;
 import com.sunvote.txpad.bean.LoginInfo;
 import com.sunvote.txpad.bean.ResponseDataBean;
+import com.sunvote.txpad.cache.FileCache;
+
+import java.io.File;
 
 /**
  * Created by Elvis on 2017/9/12.
@@ -21,14 +24,16 @@ public class LoginPresent extends BasePresent<LoginModel, ILoginView> {
      * @param username 用户名
      * @param password 密码
      */
-    public void login(String username, String password) {
+    public void login(final String username, String password) {
         view.showProgress();
         if (checkUsernameAndPassword(username, password)) {
-            model.login(username, password).subscribe(new BaseSubscriber<ResponseDataBean<LoginInfo>>() {
+            mRxManager.add(model.login(username, password).subscribe(new BaseSubscriber<ResponseDataBean<LoginInfo>>() {
                 @Override
                 public void onNext(ResponseDataBean<LoginInfo> loginInfoResponseDataBean) {
                     if (SUCCESS.equals(loginInfoResponseDataBean.getCode())) {
                         ApplicationData.getInstance().setLoginInfo(loginInfoResponseDataBean.getData());
+                        FileCache.getFileCache().saveObject("LoginInfo",loginInfoResponseDataBean.getData());
+                        model.saveUsernameToLocal(username);
                         view.gotoHomePage();
                     } else {
                         view.showError();
@@ -42,7 +47,7 @@ public class LoginPresent extends BasePresent<LoginModel, ILoginView> {
                     view.showNetError();
                     view.dismissProgress();
                 }
-            });
+            }));
         }else{
             view.dismissProgress();
         }
@@ -75,5 +80,18 @@ public class LoginPresent extends BasePresent<LoginModel, ILoginView> {
         }
 
         return true;
+    }
+
+    @Override
+    public void init() {
+        String name = model.getUsernameFromLocal();
+        if(!TextUtils.isEmpty(name)){
+            view.initUsername(name);
+        }
+        LoginInfo loginInfo = (LoginInfo) FileCache.getFileCache().readObject("LoginInfo");
+        if(loginInfo != null){
+            ApplicationData.getInstance().setLoginInfo(loginInfo);
+            view.gotoHomePage();
+        }
     }
 }

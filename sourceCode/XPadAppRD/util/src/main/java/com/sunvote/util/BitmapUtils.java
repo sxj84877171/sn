@@ -15,9 +15,6 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.provider.MediaStore.MediaColumns;
 
-/**
- * Tools for handler picture
- */
 public final class BitmapUtils {
 
     private static final String TAG = BitmapUtils.class.getSimpleName();

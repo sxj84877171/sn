@@ -22,6 +22,18 @@ public class Paper implements Serializable {
      * teacherId : 1000001
      * subjectId : 25
      * quesCount : 10
+     *
+     * {
+     "paperId": "25000001",
+     "paperName": "地理第一章测试卷",
+     "paperTitle": "测练试卷1",
+     "createTime": "2017-9-14",
+     "quesCount": 5,
+     "totalScore": 0,
+     "userId": "67982",
+     "subjectId": "25",
+     "paperType": "zt"
+     }
      */
 
     private String paperId;
@@ -29,6 +41,9 @@ public class Paper implements Serializable {
     private String createTime;
     private String teacherId;
     private String subjectId;
+    private int totalScore;
+    private String userId;
+    private String paperType;
     private int quesCount;
     private List<Question> questionList = new ArrayList<>();
 
@@ -96,5 +111,29 @@ public class Paper implements Serializable {
 
     public List<KeyBoard> getKeyBoardList() {
         return keyBoardList;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public String getPaperType() {
+        return paperType;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setPaperType(String paperType) {
+        this.paperType = paperType;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

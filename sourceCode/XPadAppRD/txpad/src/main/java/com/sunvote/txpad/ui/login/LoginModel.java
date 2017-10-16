@@ -1,8 +1,11 @@
 package com.sunvote.txpad.ui.login;
 
+import com.sunvote.txpad.Constants;
 import com.sunvote.txpad.base.BaseModel;
 import com.sunvote.txpad.bean.LoginInfo;
 import com.sunvote.txpad.bean.ResponseDataBean;
+import com.sunvote.txpad.cache.SpCache;
+import com.sunvote.util.SPUtils;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -23,6 +26,14 @@ public class LoginModel extends BaseModel {
      */
     public Observable<ResponseDataBean<LoginInfo>> login(String username,String password){
         return apiService.login(username,password).compose(BaseModel.<ResponseDataBean<LoginInfo>>io_main());
+    }
+
+    public void saveUsernameToLocal(String username){
+        SpCache.getInstance().putString(Constants.SAVE_LOGIN_USENAME,username);
+    }
+
+    public String getUsernameFromLocal(){
+        return SpCache.getInstance().getString(Constants.SAVE_LOGIN_USENAME);
     }
 
 }

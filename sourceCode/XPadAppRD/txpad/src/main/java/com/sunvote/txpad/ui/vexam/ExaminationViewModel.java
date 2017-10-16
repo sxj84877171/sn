@@ -18,12 +18,12 @@ import rx.Observable;
  */
 public class ExaminationViewModel extends BaseModel {
 
-    public Observable<ResponseDataBean<List<Paper>>> getPaperList(String userId,String subjectId){
-        return apiService.getPaperList(userId,subjectId).compose(BaseModel.<ResponseDataBean<List<Paper>>>io_main());
+    public Observable<ResponseDataBean<List<Paper>>> getPaperList(String userId,String subjectId,String paperType){
+        return apiService.getPaperList(userId,subjectId,paperType).compose(BaseModel.<ResponseDataBean<List<Paper>>>io_main());
     }
 
-    public Observable<ResponseDataBean<List<Question>>> getPaperQuestion(String paperId){
-        return apiService.getPaperQuestion(paperId).compose(BaseModel.<ResponseDataBean<List<Question>>>io_main());
+    public Observable<ResponseDataBean<List<Question>>> getPaperQuestion(String paperId,String paperType){
+        return apiService.getPaperQuestion(paperId,paperType).compose(BaseModel.<ResponseDataBean<List<Question>>>io_main());
     }
 
 }

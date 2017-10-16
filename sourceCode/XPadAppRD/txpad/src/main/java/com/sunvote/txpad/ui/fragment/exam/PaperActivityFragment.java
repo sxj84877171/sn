@@ -30,6 +30,17 @@ public class PaperActivityFragment extends BaseFragment implements IPaperFragmen
     private TextView className ;
     private TextView classStudentNum ;
     private View filler;
+    private View newPaper;
+
+    private View examinationViewCoursesChinese ;
+    private View examinationViewCoursesMatch ;
+    private View examinationViewCoursesEnglish;
+    private View examinationViewCoursesPhysics;
+    private View examinationViewCoursesChemistry;
+    private View examinationViewCoursesBiology;
+    private View examinationViewCoursesHistory;
+    private View examinationViewCoursesGeography;
+    private View examinationViewCoursesPolitics;
 
     public PaperActivityFragment() {
     }
@@ -45,6 +56,16 @@ public class PaperActivityFragment extends BaseFragment implements IPaperFragmen
         className = findViewById(R.id.class_name);
         classStudentNum = findViewById(R.id.class_students_num);
         filler = findViewById(R.id.filler);
+        newPaper = findViewById(R.id.new_paper);
+        examinationViewCoursesChinese = findViewById(R.id.examination_view_courses_chinese);
+        examinationViewCoursesMatch = findViewById(R.id.examination_view_courses_match);
+        examinationViewCoursesEnglish = findViewById(R.id.examination_view_courses_english);
+        examinationViewCoursesPhysics = findViewById(R.id.examination_view_courses_physics);
+        examinationViewCoursesChemistry = findViewById(R.id.examination_view_courses_chemistry);
+        examinationViewCoursesBiology = findViewById(R.id.examination_view_courses_biology);
+        examinationViewCoursesHistory = findViewById(R.id.examination_view_courses_history);
+        examinationViewCoursesGeography = findViewById(R.id.examination_view_courses_geography);
+        examinationViewCoursesPolitics = findViewById(R.id.examination_view_courses_politics);
     }
 
     @Override
@@ -82,6 +103,12 @@ public class PaperActivityFragment extends BaseFragment implements IPaperFragmen
                 present.getPaperList(true);
             }
         });
+        newPaper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showToast("请期待");
+            }
+        });
     }
 
     public void setClassStudent(ClassStudent classStudent) {
@@ -92,25 +119,47 @@ public class PaperActivityFragment extends BaseFragment implements IPaperFragmen
     public void onResume() {
         super.onResume();
         classStudent = ApplicationData.getInstance().getClassStudent();
+        showClassInfo(classStudent);
+        present.getPaperList(false);
+    }
+
+    public void showClassInfo(ClassStudent classStudent) {
         if(classStudent != null){
+            this.classStudent = classStudent;
             className.setText(classStudent.getClassName());
             classStudentNum.setText(getString(R.string.home_fragment_class_student_num)
                     + classStudent.getStudentCount() + getString(R.string.home_fragment_class_student_flag));
         }
-        present.getPaperList(false);
+    }
+
+    @Override
+    public void addPaperList(List<Paper> papers) {
+        if(papers != null){
+            adapter.addPaperList(papers);
+        }
     }
 
     @Override
     public void initData() {
         adapter = new PaperListAdapter();
         courseList.setAdapter(adapter);
+        present.init();
+        int subjectId = Integer.parseInt(ApplicationData.getInstance().getLoginInfo().getSubjectId());
+        switch (subjectId){
+            case 25:
+                examinationViewCoursesGeography.setBackgroundResource(R.drawable.rancnge_background_choose);
+                break;
+            case 26:
+                examinationViewCoursesEnglish.setBackgroundResource(R.drawable.rancnge_background_choose);
+                break;
+        }
     }
 
     @Override
     public void gotoPreviewPaper(ClassStudent classStudent,Paper paper) {
         Intent intent = new Intent(getBaseActivity(), ExaminationViewActivity.class);
-        intent.putExtra("paper",paper);
-        intent.putExtra("classStudent",classStudent);
+        ApplicationData.getInstance().setClassStudent(classStudent);
+        ApplicationData.getInstance().setClassPaper(paper);
         startActivity(intent);
     }
 
@@ -120,14 +169,15 @@ public class PaperActivityFragment extends BaseFragment implements IPaperFragmen
 //        intent.putExtra("paper",paper);
 //        intent.putExtra("classStudent",classStudent);
 //        startActivity(intent);
-        showToast("后续实现");
+        ApplicationData.getInstance().setNoClassPaper(paper);
+        showToast("请期待");
     }
 
     @Override
     public void gotoPhaseTest(ClassStudent classStudent,Paper paper) {
         Intent intent = new Intent(getActivity(), SignActivity.class);
-        intent.putExtra("paper",paper);
-        intent.putExtra("classStudent",classStudent);
+        ApplicationData.getInstance().setClassStudent(classStudent);
+        ApplicationData.getInstance().setClassPaper(paper);
         startActivity(intent);
     }
 

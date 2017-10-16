@@ -19,4 +19,6 @@ public interface IBaseStationFragmentView extends BaseFragmentView {
     public void showCh(String ch);
 
     public void showCheckFragment();
+
+    public void refeash();
 }

@@ -23,3 +23,50 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keepattributes *Annotation*
+ -keep public class * implements com.bumptech.glide.module.GlideModule
+    -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+      **[] $VALUES;
+      public *;
+    }
+
+    -keep class org.greenrobot.greendao.**{*;}
+    -keep public interface org.greenrobot.greendao.**
+    -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+    public static java.lang.String TABLENAME;
+    }
+    -keep class **$Properties
+    -keep class net.sqlcipher.database.**{*;}
+    -keep public interface net.sqlcipher.database.**
+    -dontwarn net.sqlcipher.database.**
+    -dontwarn org.greenrobot.greendao.**
+
+    -optimizationpasses 5
+    -dontusemixedcaseclassnames
+    -dontskipnonpubliclibraryclasses
+    -dontpreverify
+    -verbose
+    -dontwarn
+    -dontskipnonpubliclibraryclassmembers
+    -ignorewarnings
+    -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+
+
+     -keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
+
+    # 保持 native 方法不被混淆
+    -keepclasseswithmembernames class * {
+        native <methods>;
+    }
+    -keepclasseswithmembers class * {
+        public <init>(android.content.Context, android.util.AttributeSet);
+    }
+    -keepclasseswithmembers class * {
+        public <init>(android.content.Context, android.util.AttributeSet, int);
+    }
+
+
+    # 泛型与反射
+    -keepattributes Signature
+    -keepattributes EnclosingMethod
+    -keepattributes *Annotation*

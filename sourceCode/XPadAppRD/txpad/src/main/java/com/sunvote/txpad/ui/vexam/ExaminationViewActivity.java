@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sunvote.txpad.ApplicationData;
 import com.sunvote.txpad.R;
 import com.sunvote.txpad.base.BaseActivity;
+import com.sunvote.txpad.base.BasePresent;
 import com.sunvote.txpad.bean.ClassStudent;
 import com.sunvote.txpad.bean.Paper;
 import com.sunvote.txpad.bean.Question;
@@ -40,8 +42,10 @@ public class ExaminationViewActivity extends BaseActivity implements IViewExamin
 
     private TextView testNum;
     private TextView testStartTime;
+    private View back;
 
     private View phaseTest;
+    private View followUpTest;
     private ClassStudent classStudent;
     private Paper paper;
 
@@ -59,6 +63,11 @@ public class ExaminationViewActivity extends BaseActivity implements IViewExamin
     }
 
     @Override
+    public BasePresent getBasePresent() {
+        return present;
+    }
+
+    @Override
     public void initView() {
         questions = getViewById(R.id.questions);
         close = getViewById(R.id.close);
@@ -70,6 +79,8 @@ public class ExaminationViewActivity extends BaseActivity implements IViewExamin
         testStartTime = getViewById(R.id.test_start_time);
         phaseTest = getViewById(R.id.phase_test);
         paperName = getViewById(R.id.paper_name);
+        back = getViewById(R.id.back);
+        followUpTest = getViewById(R.id.follow_up_test);
     }
 
     @Override
@@ -96,20 +107,33 @@ public class ExaminationViewActivity extends BaseActivity implements IViewExamin
                 gotoPhaseTest(classStudent,paper);
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        followUpTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showToast("请期待");
+            }
+        });
     }
 
     @Override
     public void initData() {
-        Intent intent = getIntent();
-        classStudent = (ClassStudent) intent.getSerializableExtra("classStudent");
-        paper = (Paper)intent.getSerializableExtra("paper");
+        classStudent = ApplicationData.getInstance().getClassStudent();
+        paper = ApplicationData.getInstance().getClassPaper();
         adapter = new QuestionAdapter();
         questions.setAdapter(adapter);
         questions.setDivider(null);
         testNum.setText(adapter.getCount() + getString(R.string.examination_view_question_flag));
         paperName.setText(paper.getPaperName());
-        testStartTime.setText(present.getCurrentTime());
-        present.getPaperQuestion(paper.getPaperId());
+        testStartTime.setText(paper.getCreateTime());
+        present.getPaperQuestion(paper.getPaperId(),paper.getPaperType());
     }
 
     @Override

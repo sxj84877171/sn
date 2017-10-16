@@ -27,11 +27,23 @@ public class DeviceCheckFragmentPresent extends BaseFragmentPresent <DeviceCheck
 
     public void test(){
         if(isStartTest){
+            stopTest();
+        }else{
+            startTest();
+        }
+    }
+
+    public void stopTest(){
+        if(isStartTest) {
             isStartTest = false;
             ApplicationDataManager.getInstance().setOfflineAllKeyboard();
             view.showStartTest();
             model.stopTest(keyEventCallBack);
-        }else{
+        }
+    }
+
+    public void startTest(){
+        if(isStartTest == false) {
             isStartTest = true;
             view.showStopTest();
             model.startTest(keyEventCallBack);

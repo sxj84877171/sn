@@ -46,25 +46,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/header"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:src="@drawable/page" />
+                        android:src="@drawable/test_paper_bank_unselected" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
                         android:textSize="@dimen/big_text_p4"
                         android:gravity="center"
                         android:text="@string/home_fragment_paper_bank" />
@@ -84,11 +83,11 @@
 
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:src="@drawable/name" />
+                        android:src="@drawable/roster_unselected" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -115,11 +114,11 @@
 
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:src="@drawable/message" />
+                        android:src="@drawable/message_box_unselected" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,11 +145,11 @@
 
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:src="@drawable/score_book" />
+                        android:src="@drawable/score_book_unselected" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -177,11 +176,11 @@
 
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:src="@drawable/manager" />
+                        android:src="@drawable/manager_unselected" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -203,8 +202,7 @@
             android:layout_height="match_parent"
             android:layout_weight="8"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/rancnge_background">
+            android:layout_marginTop="5dp">
         </FrameLayout>
     </LinearLayout>
 </RelativeLayout>

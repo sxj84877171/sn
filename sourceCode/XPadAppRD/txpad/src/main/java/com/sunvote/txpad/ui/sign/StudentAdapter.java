@@ -3,6 +3,7 @@ package com.sunvote.txpad.ui.sign;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -26,11 +27,18 @@ public class StudentAdapter extends BaseAdapter {
     public static final int MODE_SIGN_KEYID = 3 ;
     public static final int MODE_SIGN_KEYSN = 4 ;
     public static final int MODE_CHECK_ONLINE = 5;
+    public static final int MODE_ANSWER = 6;
     public static final int EDIT_NO = 1 ;
     public static final int EDIT_YES = 2 ;
 
     private int mode = MODE_SIGN_KEYID;
     private int isEdit = EDIT_NO ;
+    private boolean canClick = false;
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     private List<Student> studentList = new ArrayList<>();
 
@@ -39,6 +47,10 @@ public class StudentAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void setCanClick(boolean canClick) {
+        this.canClick = canClick;
+        notifyDataSetChanged();
+    }
 
     public void setMode(int mode) {
         this.mode = mode;
@@ -56,12 +68,18 @@ public class StudentAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return studentList.size();
+        if(studentList != null) {
+            return studentList.size();
+        }
+        return 0;
     }
 
     @Override
     public Object getItem(int i) {
-        return studentList.get(i);
+        if(studentList != null){
+            return studentList.get(i);
+        }
+        return null;
     }
 
     @Override
@@ -76,7 +94,7 @@ public class StudentAdapter extends BaseAdapter {
      * @return
      */
     @Override
-    public View getView(int i, View rootView, ViewGroup viewGroup) {
+    public View getView(final int i, View rootView, ViewGroup viewGroup) {
         ViewHolder viewHolder = null;
         if(rootView == null) {
             rootView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.student, null);
@@ -88,21 +106,45 @@ public class StudentAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) rootView.getTag();
         }
-        Student student = studentList.get(i);
+        final Student student = studentList.get(i);
         KeyBoard keyBoard = student.getKeyBoard();
         viewHolder.studentName.setText(student.getStudentName());
         if(mode == MODE_NO) {
-            displayNoMode(viewHolder, "" + student.getStudentNo());
+            displayNoMode(viewHolder, keyBoard);
         }else if(mode == MODE_SN){
-            displaySnMode(viewHolder, student.getStudentId());
+            displaySnMode(viewHolder, keyBoard);
         }else if(mode == MODE_SIGN_KEYID){
             displaySignKeyIdMode(viewHolder, keyBoard);
         }else if(mode == MODE_SIGN_KEYSN){
             displaySignKeySnMode(viewHolder,keyBoard);
         }else if(mode == MODE_CHECK_ONLINE){
             displayOnlineCheckMode(viewHolder, keyBoard);
+        }else if(mode == MODE_ANSWER){
+            displayAnswerMode(viewHolder,student);
+        }
+        if(canClick){
+            if(student.isSignReady()){
+                viewHolder.studentItem.setBackgroundResource(R.drawable.rancnge_background);
+            }else{
+                viewHolder.studentItem.setBackgroundResource(R.drawable.input_background);
+            }
+            rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    student.setSignReady(!student.isSignReady());
+                    if(onItemClickListener != null){
+                        onItemClickListener.onItemClick(view,student,i);
+                    }
+                }
+            });
         }
         return rootView;
+    }
+
+    private void displayAnswerMode(ViewHolder viewHolder, Student student) {
+        viewHolder.studentName.setText(student.getStudentName());
+        viewHolder.studentPresent.setVisibility(View.VISIBLE);
+        viewHolder.studentPresent.setText(student.getAnswerProgress());
     }
 
     private void displayOnlineCheckMode(ViewHolder viewHolder, KeyBoard keyBoard) {
@@ -111,6 +153,8 @@ public class StudentAdapter extends BaseAdapter {
         } else {
             viewHolder.studentItem.setBackgroundResource(R.drawable.rectangle_offline);
         }
+        viewHolder.studentPresent.setVisibility(View.VISIBLE);
+        viewHolder.studentPresent.setText(keyBoard.getKeyId());
     }
 
     private void displaySignKeyIdMode(ViewHolder viewHolder, KeyBoard keyBoard) {
@@ -121,7 +165,7 @@ public class StudentAdapter extends BaseAdapter {
             viewHolder.studentPresent.setVisibility(View.INVISIBLE);
         }
         if (keyBoard != null) {
-            if (keyBoard.isWeak()) {
+            if (keyBoard.isConflict()) {
                 viewHolder.studentItem.setBackgroundResource(R.drawable.rectangle_weak_current);
             } else {
                 if (keyBoard.isSign()) {
@@ -153,19 +197,27 @@ public class StudentAdapter extends BaseAdapter {
         }
     }
 
-    private void displayNoMode(ViewHolder viewHolder, String text) {
+    private void displayNoMode(ViewHolder viewHolder, KeyBoard keyBoard) {
         viewHolder.studentPresent.setVisibility(View.VISIBLE);
-        viewHolder.studentPresent.setText(text);
+        if(keyBoard.getKeyId() != null){
+            viewHolder.studentPresent.setText(keyBoard.getKeyId());
+        }
     }
 
-    private void displaySnMode(ViewHolder viewHolder, String text) {
+    private void displaySnMode(ViewHolder viewHolder, KeyBoard keyBoard) {
         viewHolder.studentPresent.setVisibility(View.VISIBLE);
-        viewHolder.studentPresent.setText(text);
+        if(keyBoard.getKeySn() != null){
+            viewHolder.studentPresent.setText(keyBoard.getKeySn());
+        }
     }
 
     class ViewHolder{
         View studentItem;
         TextView studentName;
         TextView studentPresent;
+    }
+
+    interface OnItemClickListener{
+        void onItemClick(View view,Student student, int index);
     }
 }

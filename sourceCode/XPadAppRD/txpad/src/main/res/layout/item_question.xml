@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/resolution"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rancnge_background"
         android:gravity="center_horizontal"
@@ -27,7 +27,7 @@
         android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/big_text_p3"
+        android:textSize="@dimen/big_text_p4"
         android:layout_weight="1"
         android:layout_marginBottom="10dp"
         android:text="12岁的李明一年内明显长高了，他增长的高度可能是（     ）\nA．8cm         \nB．8mm        \nC．8dm         \nD．8μm"/>

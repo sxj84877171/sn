@@ -29,6 +29,7 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onError(Throwable e) {
         LogUtil.e("BaseSubscriber",e);
+        onCompleted();
     }
 
     /**

@@ -25,13 +25,13 @@ public class BaseFragment extends Fragment implements BaseFragmentView{
             if(resId != 0){
                 rootView = inflater.inflate(resId, container, false);
                 initView();
+                initMVP();
                 initData();
                 initListener();
             }
         }catch (Exception ex){
             LogUtil.e("BaseFragment",ex);
         }
-        initMVP();
         return rootView;
     }
 

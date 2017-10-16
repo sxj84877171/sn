@@ -37,4 +37,8 @@ public interface IPaperFragmentView extends BaseFragmentView {
 
 
     public void showPaperList(List<Paper> papers);
+
+    public void showClassInfo(ClassStudent classStudent);
+
+    public void addPaperList(List<Paper> papers);
 }

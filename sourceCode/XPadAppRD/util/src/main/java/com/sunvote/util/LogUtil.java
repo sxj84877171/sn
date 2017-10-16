@@ -52,15 +52,15 @@ public class LogUtil {
             synchronized (LogUtil.class) {
                 if(fileWriter == null) {
                     try {
-                        File path = new File(Environment.getExternalStorageDirectory().getPath() + "/sunvote/");
+                        File path = new File(Environment.getExternalStorageDirectory().getPath() + "/ETest/");
                         if (!path.exists()) {
                             path.mkdirs();
                         }
                         File oldLogFile = new File(Environment.getExternalStorageDirectory().getPath()
-                                + "/sunvote/udpprotocal.log");
+                                + "/ETest/etest.log");
                         oldLogFile.deleteOnExit();
                         File file = new File(Environment.getExternalStorageDirectory().getPath()
-                                + "/sunvote/log" + simpleDateFormat.format(new Date())+".txt");
+                                + "/ETest/log" + simpleDateFormat.format(new Date())+".txt");
                         if (!file.exists()) {
                             file.createNewFile();
                         }

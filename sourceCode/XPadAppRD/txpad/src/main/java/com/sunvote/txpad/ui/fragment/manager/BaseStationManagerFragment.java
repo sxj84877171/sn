@@ -21,6 +21,7 @@ public class BaseStationManagerFragment extends BaseFragment implements IBaseSta
     private Button fixedMode;
     private TextView ch;
     private View deviceCheck;
+    private View connectAgain;
     private BaseStationFragmentPresent present;
 
     @Override
@@ -41,6 +42,7 @@ public class BaseStationManagerFragment extends BaseFragment implements IBaseSta
         freeMode = findViewById(R.id.free_mode);
         fixedMode = findViewById(R.id.fixed_mode);
         deviceCheck = findViewById(R.id.device_check);
+        connectAgain = findViewById(R.id.connect_again);
         ch = findViewById(R.id.ch);
     }
 
@@ -64,6 +66,13 @@ public class BaseStationManagerFragment extends BaseFragment implements IBaseSta
             @Override
             public void onClick(View view) {
                 present.deviceCheck();
+            }
+        });
+
+        connectAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                present.connectAgain();
             }
         });
     }
@@ -101,6 +110,14 @@ public class BaseStationManagerFragment extends BaseFragment implements IBaseSta
         if(baseActivity instanceof HomeActivity) {
             HomeActivity homeActivity = (HomeActivity) baseActivity;
             homeActivity.showDevideCheckFragment();
+        }
+    }
+
+    @Override
+    public void refeash() {
+        BaseActivity baseActivity = getBaseActivity();
+        if(baseActivity != null){
+            baseActivity.initBootviewData();
         }
     }
 }

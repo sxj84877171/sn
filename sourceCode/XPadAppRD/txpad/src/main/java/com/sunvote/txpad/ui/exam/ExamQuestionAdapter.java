@@ -1,6 +1,8 @@
 package com.sunvote.txpad.ui.exam;
 
+import android.os.Build;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,8 @@ import android.widget.TextView;
 import com.sunvote.txpad.ApplicationDataHelper;
 import com.sunvote.txpad.R;
 import com.sunvote.txpad.bean.Question;
+import com.sunvote.txpad.ui.vexam.HtmlImageGetter;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +27,6 @@ import java.util.List;
 public class ExamQuestionAdapter extends BaseAdapter {
 
     private List<Question> questionList = new ArrayList<>();
-
-    private int students = 1 ;
-
-    public void setStudents(int students) {
-        this.students = students;
-    }
 
     @Override
     public int getCount() {
@@ -65,10 +61,16 @@ public class ExamQuestionAdapter extends BaseAdapter {
         Question question = questionList.get(i);
         viewHolder.examQuestionNo.setText((i+1) + ".");
         viewHolder.examQuestionType.setText(getString(viewHolder.examQuestionType, ApplicationDataHelper.getInstance().getQuestionType(question.getType())));
-        viewHolder.examQuestionContent.setText(Html.fromHtml(question.getContent()));
+        Spanned spanned = null;
+        if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N ){
+            spanned = Html.fromHtml(question.getContent() , 0,new HtmlImageGetter(view.getContext()),null);
+        }else{
+            spanned = Html.fromHtml(question.getContent());
+        }
+        viewHolder.examQuestionContent.setText(spanned);
         viewHolder.examProgressView.setProgress(question.getReply());
-        viewHolder.examProgressView.setMax(students);
-        viewHolder.examProgressText.setText(progressText(question.getReply(),students));
+        viewHolder.examProgressView.setMax(question.getStudentAnswer().size());
+        viewHolder.examProgressText.setText(progressText(question.getReply(),question.getStudentAnswer().size()));
         return view;
     }
 

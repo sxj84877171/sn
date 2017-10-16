@@ -48,7 +48,7 @@ public class Api {
             LogUtil.i("URL","url=="+chain.request().url());
             return chain.proceed(chain.request().newBuilder()
 //                    .addHeader("Token", "Token")
-                    .addHeader("Content-Type", "application/json")
+                    .addHeader("Content-Type", "application/json;charset=utf-8")
                     .build());
         }
     };
@@ -100,27 +100,6 @@ public class Api {
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
             return chain.proceed(request);
-
-//            if (!NetWorkUtil.isNetConnected(App.getApp())) {
-//                request = request.newBuilder()
-//                        .cacheControl(CacheControl.FORCE_CACHE)
-//                        .build();
-//            }
-//
-//            Response originalResponse = chain.proceed(request);
-//            if (NetWorkUtil.isNetConnected(App.getApp())) {
-//                //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
-//                String cacheControl = request.cacheControl().toString();
-//                return originalResponse.newBuilder()
-//                        .header("Cache-Control", cacheControl)
-//                        .removeHeader("Pragma")
-//                        .build();
-//            } else {
-//                return originalResponse.newBuilder()
-//                        .header("Cache-Control", "public, only-if-cached, max-stale=2419200")
-//                        .removeHeader("Pragma")
-//                        .build();
-//            }
         }
     }
 }

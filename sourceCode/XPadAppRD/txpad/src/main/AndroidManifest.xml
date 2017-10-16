@@ -27,7 +27,6 @@
             android:name=".ui.main.HomeActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/AppTheme" >
-
             </activity>
         <activity android:name=".ui.manager.BaseStationManagerActivity" />
         <activity
@@ -35,7 +34,7 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="sensorLandscape"/>
         <activity
-            android:name=".ui.examlist.ExaminationActivity"
+            android:name=".ui.exam.ExaminationActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="sensorLandscape"></activity>
 
@@ -48,9 +47,14 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="sensorLandscape"/>
 
-        <activity android:name=".ui.examgird.ExaminationActivity"
+        <activity android:name=".ui.stuprogress.StudentProgressActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="sensorLandscape"/>
+
+        <activity android:name=".ui.report.PaperReportActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="sensorLandscape"/>
+
     </application>
 
 </manifest>

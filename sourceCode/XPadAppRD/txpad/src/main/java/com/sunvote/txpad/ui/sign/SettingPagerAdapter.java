@@ -145,7 +145,7 @@ public class SettingPagerAdapter extends PagerAdapter {
         signModePressKey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signModePressKeyImg.setImageResource(R.mipmap.ic_launcher);
+                signModePressKeyImg.setImageResource(R.drawable.choose_selected);
                 signModeBackgroundImg.setImageResource(0);
                 signModeRandomImg.setImageResource(0);
                 signType = 1 ;//查看变量定义
@@ -156,7 +156,7 @@ public class SettingPagerAdapter extends PagerAdapter {
             @Override
             public void onClick(View view) {
                 signModePressKeyImg.setImageResource(0);
-                signModeBackgroundImg.setImageResource(R.mipmap.ic_launcher);
+                signModeBackgroundImg.setImageResource(R.drawable.choose_selected);
                 signModeRandomImg.setImageResource(0);
                 signType = 2 ;
             }
@@ -171,9 +171,9 @@ public class SettingPagerAdapter extends PagerAdapter {
 //            }
 //        });
         switch (signType){
-            case 1:signModePressKeyImg.setImageResource(R.mipmap.ic_launcher);break;
-            case 2:signModeBackgroundImg.setImageResource(R.mipmap.ic_launcher);break;
-            case 4:signModeRandomImg.setImageResource(R.mipmap.ic_launcher);break;
+            case 1:signModePressKeyImg.setImageResource(R.drawable.choose_selected);break;
+            case 2:signModeBackgroundImg.setImageResource(R.drawable.choose_selected);break;
+            case 4:signModeRandomImg.setImageResource(R.drawable.choose_selected);break;
         }
         return rootView;
     }

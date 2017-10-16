@@ -1,6 +1,9 @@
 package com.sunvote.txpad.bean;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +29,7 @@ public class Question implements Serializable {
      * pointName : 轴对称的性质
      */
 
+    private int score ;
     /**
      * 课程试题
      */
@@ -59,10 +63,7 @@ public class Question implements Serializable {
     private String pointName;
     private List<String> options;
 
-    /**
-     * 回答该问题的人数
-     */
-    private int reply = 0;
+    private List<QuestionSudentAnswer> studentAnswer = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -148,15 +149,41 @@ public class Question implements Serializable {
         return options;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public void setOptions(List<String> options) {
         this.options = options;
     }
 
     public int getReply() {
+        int reply = 0 ;
+        for(QuestionSudentAnswer answer : studentAnswer){
+            if(!TextUtils.isEmpty(answer.getAnswer())){
+                reply ++ ;
+            }
+        }
         return reply;
     }
 
-    public void setReply(int reply) {
-        this.reply = reply;
+    public List<QuestionSudentAnswer> getStudentAnswer() {
+        return studentAnswer;
+    }
+
+    public void setStudentAnswer(List<QuestionSudentAnswer> studentAnswer) {
+        this.studentAnswer = studentAnswer;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(id != null && obj instanceof Question){
+            return id.equals(((Question) obj).id);
+        }
+        return super.equals(obj);
     }
 }
