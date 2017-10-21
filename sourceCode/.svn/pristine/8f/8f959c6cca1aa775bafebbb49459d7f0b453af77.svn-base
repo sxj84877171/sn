@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:paddingLeft="20dp"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:id="@+id/paper_analog"
+            android:layout_width="100dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="@dimen/big_text_p4"
+                android:text="@string/score_book_type_analog"
+                android:background="@drawable/rancnge_background"/>
+
+            <ImageView
+                android:id="@+id/paper_analog_choose"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/add"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/paper_zhenti"
+            android:layout_toEndOf="@id/paper_analog"
+            android:layout_marginLeft="30dp"
+            android:layout_width="100dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="@dimen/big_text_p4"
+                android:text="@string/score_book_type_zhenti"
+                android:background="@drawable/rancnge_background"/>
+
+            <ImageView
+                android:id="@+id/paper_zhenti_choose"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/add"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/paper_personal"
+            android:layout_toEndOf="@id/paper_zhenti"
+            android:layout_width="100dp"
+            android:layout_marginLeft="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="@dimen/big_text_p4"
+                android:text="@string/score_book_type_personal"
+                android:background="@drawable/rancnge_background"/>
+
+            <ImageView
+                android:id="@+id/paper_personal_choose"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/add"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/paper_personal_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/score_book_type_personal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/big_text_p4"/>
+        <TextView
+            android:id="@+id/paper_zhenti_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/score_book_type_zhenti"
+            android:layout_toStartOf="@id/paper_personal_num"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/big_text_p4"/>
+        <TextView
+            android:id="@+id/paper_analog_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/score_book_type_analog"
+            android:layout_toStartOf="@id/paper_zhenti_num"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/big_text_p4"/>
+        <TextView
+            android:id="@+id/paper_all_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/score_book_type_all"
+            android:layout_toStartOf="@id/paper_analog_num"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/big_text_p4"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rancnge_background">
+        <include layout="@layout/item_paper_little_info"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/paper_score_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+</LinearLayout>

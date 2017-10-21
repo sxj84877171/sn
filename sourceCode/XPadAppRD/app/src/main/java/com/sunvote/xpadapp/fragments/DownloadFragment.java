@@ -132,18 +132,15 @@ public class DownloadFragment extends BaseFragment implements FileReciverInterfa
 						cancelTimer();
 						disableWifi();
 						try {
-							if(isAttach) {
-								tv.setText(getString(R.string.connect_server_fail));
-							}
+							tv.setText(getString(R.string.connect_server_fail));
 						} catch (Exception ex) {
 						}
 						break;
 					case msgOnDownload:
 						Log.d(TAG, getString(R.string.downloading) + msg.arg1 + "%");
 						try {
-							if(isAttach){
-								tv.setText(getString(R.string.downloading) + msg.arg1 + "%");
-							}
+							tv.setText(getString(R.string.downloading) + msg.arg1 + "%");
+							tv.invalidate();
 						} catch (Exception ex) {
 							LogUtil.e(UDPModule.TAG, ex);
 						}
@@ -151,10 +148,9 @@ public class DownloadFragment extends BaseFragment implements FileReciverInterfa
 					case msgDownloadOver:
 						try {
 							Log.d(TAG, "on msgDownloadOver");
-							if(isAttach){
-								tv.setText(getString(R.string.download_over));
-							}
+							tv.setText(getString(R.string.download_over));
 							cancelTimer();
+							disableWifi();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -162,9 +158,7 @@ public class DownloadFragment extends BaseFragment implements FileReciverInterfa
 						break;
 					case msgDownloadDataError:
 						try {
-							if(isAttach) {
-								tv.setText(getString(R.string.download_fail));
-							}
+							tv.setText(getString(R.string.download_fail));
 						} catch (Exception ex) {
 							ex.printStackTrace();
 						}

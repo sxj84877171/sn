@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/root_panel"
+        layout="@layout/root_panel" />
+
+    <RelativeLayout
+        android:id="@+id/top_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/class_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:text=""
+            android:textSize="@dimen/big_text_p2" />
+
+        <TextView
+            android:id="@+id/class_students_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@id/class_name"
+            android:gravity="center"
+            android:text=""
+            android:textSize="@dimen/big_text_p4" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/paper_name_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_panel"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/paper_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"
+            android:text=""
+            android:textSize="@dimen/big_text_p4" />
+
+        <TextView
+            android:id="@+id/test_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text=""
+            android:textSize="@dimen/big_text_p5" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/paper_info_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paper_name_line">
+
+        <TextView
+            android:id="@+id/paper_score_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/score_book_paper_all"
+            android:textSize="@dimen/big_text_p4" />
+
+        <TextView
+            android:id="@+id/paper_score_avl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@id/paper_score_all"
+            android:text="@string/score_book_paper_avl"
+            android:textSize="@dimen/big_text_p4" />
+
+        <TextView
+            android:id="@+id/paper_high_student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@id/paper_score_avl"
+            android:text="@string/score_book_paper_high_student"
+            android:textSize="@dimen/big_text_p4" />
+
+        <TextView
+            android:id="@+id/paper_low_student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@id/paper_high_student"
+            android:text="@string/score_book_paper_low_student"
+            android:textSize="@dimen/big_text_p4" />
+
+       <LinearLayout
+           android:id="@+id/sort_rang"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentRight="true"
+           android:layout_marginRight="20dp"
+           android:background="@drawable/rancnge_background">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="5dp"
+               android:layout_gravity="center_vertical"
+               android:gravity="center_vertical"
+               android:textSize="@dimen/big_text_p4"
+               android:text="@string/score_book_paper_sort_rang"/>
+
+           <ImageView
+               android:id="@+id/sort_rang_img"
+               android:layout_width="20dp"
+               android:layout_height="20dp"
+               android:layout_marginLeft="5dp"
+               android:layout_marginRight="5dp"
+               android:src="@drawable/rang_unchoose"/>
+       </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sort_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/sort_rang"
+            android:background="@drawable/rancnge_background"
+            android:layout_marginRight="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/big_text_p4"
+                android:text="@string/score_book_paper_sort_no"/>
+
+            <ImageView
+                android:id="@+id/sort_no_img"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/rang_unchoose"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/paper_report"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/paper_info_line"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_above="@id/root_panel">
+    </WebView>
+
+</RelativeLayout>

@@ -110,27 +110,4 @@ public class FileUtil {
 			file.delete();
 		}
 	}
-
-	public static void deleteFileInDir(File file) {
-		if(file == null){
-			return;
-		}
-		if (file.isFile()) {
-			file.delete();
-			return;
-		}
-
-		if (file.isDirectory()) {
-			File[] childFiles = file.listFiles();
-			if (childFiles == null || childFiles.length == 0) {
-
-				return;
-			}
-
-			for (int i = 0; i < childFiles.length; i++) {
-				deleteFileInDir(childFiles[i]);
-			}
-
-		}
-	}
 }

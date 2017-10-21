@@ -1,0 +1,31 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <!--文字大小标记设置-->
+    <dimen name="big_text_p1">50sp</dimen>
+    <dimen name="big_text_p2">30sp</dimen>
+    <dimen name="big_text_p3">22sp</dimen>
+    <dimen name="big_text_p4">18sp</dimen>
+    <dimen name="big_text_p5">14sp</dimen>
+    <dimen name="big_text_p6">10sp</dimen>
+
+
+
+    <dimen name="big_text_pp1">10sp</dimen>
+    <dimen name="big_text_pp2">12sp</dimen>
+    <dimen name="big_text_pp3">14sp</dimen>
+    <dimen name="big_text_pp4">16sp</dimen>
+    <dimen name="big_text_pp5">18sp</dimen>
+    <dimen name="big_text_pp6">20sp</dimen>
+    <dimen name="big_text_pp7">22sp</dimen>
+    <dimen name="big_text_pp8">24sp</dimen>
+    <dimen name="big_text_pp9">26sp</dimen>
+    <dimen name="big_text_pp10">28sp</dimen>
+    <dimen name="big_text_pp11">30sp</dimen>
+    <dimen name="big_text_pp12">32sp</dimen>
+    <dimen name="big_text_pp13">34sp</dimen>
+    <dimen name="big_text_pp14">36sp</dimen>
+    <dimen name="big_text_pp15">38sp</dimen>
+    <dimen name="big_text_pp16">40sp</dimen>
+    <dimen name="big_text_pp17">45sp</dimen>
+    <dimen name="big_text_pp18">50sp</dimen>
+</resources>

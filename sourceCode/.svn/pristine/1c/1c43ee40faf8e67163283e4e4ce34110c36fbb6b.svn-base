@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/boot_layout"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_alignParentBottom="true">
+
+    <TextView
+        android:id="@+id/home_fragment_free_pairing"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:textSize="@dimen/big_text_p6"
+        android:text="@string/home_fragment_free_pairing" />
+
+    <ImageView
+        android:id="@+id/home_fragment_free_pairing_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/home_fragment_free_pairing"
+        android:src="@mipmap/ic_launcher" />
+
+
+    <TextView
+        android:id="@+id/home_fragment_s52plus"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@id/home_fragment_free_pairing_icon"
+        android:gravity="center"
+        android:textSize="@dimen/big_text_p6"
+        android:text="@string/home_fragment_s52plus" />
+
+    <ImageView
+        android:id="@+id/home_fragment_s52plus_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/home_fragment_s52plus"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/home_fragment_frequency"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@id/home_fragment_s52plus_icon"
+        android:gravity="center"
+        android:textSize="@dimen/big_text_p6"
+        android:text="@string/home_fragment_frequency" />
+
+    <ImageView
+        android:id="@+id/home_fragment_frequency_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/home_fragment_frequency"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connect_state"
+        android:textSize="@dimen/big_text_p6"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"
+        android:text="未连接"/>
+
+</RelativeLayout>
+

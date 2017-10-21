@@ -1,0 +1,5 @@
+fileHashes.bin
+*.bin
+*.lock
+.idea
+build

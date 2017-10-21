@@ -126,7 +126,7 @@ public class ResultVoteFragment extends BaseFragment {
 			}
 		});
 
-		pagePanel.setVisibility(View.GONE);
+		pagePanel.setVisibility(View.INVISIBLE);
 		// if (bill != null && bill.title != null) {
 		// //tvBillTitle.setText(bill.title);
 		// }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginTop="20dp"
+    android:layout_alignParentTop="true">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:src="@drawable/back"
+        android:layout_centerVertical="true"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/back"
+        android:id="@+id/class_name_list"
+        android:background="@drawable/rancnge_background"
+        android:minWidth="200dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:spinnerMode="dropdown"/>
+
+    <Switch
+        android:id="@+id/switch_id_sn"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="49dp"
+        android:layout_toEndOf="@+id/class_name_list"
+        android:text="@string/name_list_id_sn" />
+
+    <LinearLayout
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rancnge_background">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/delete"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/big_text_p4"
+            android:layout_marginRight="5dp"
+            android:text="@string/name_list_edit"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_toStartOf="@id/edit"
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rancnge_background">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/add"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/big_text_p4"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:text="@string/name_list_add"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

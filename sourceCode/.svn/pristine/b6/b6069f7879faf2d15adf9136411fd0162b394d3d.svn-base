@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/top_panel"
+        layout="@layout/title_panel" />
+
+    <include
+        android:id="@+id/bottom_panel"
+        layout="@layout/root_panel" />
+
+    <RelativeLayout
+        android:id="@+id/p_title_panel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/top_panel"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/sign_num_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="点名：26/30"
+            android:textSize="@dimen/big_text_p3" />
+
+        <ProgressBar
+            android:id="@+id/sign_process_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="400dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/sign_num_desc"
+            android:max="30"
+            android:progress="26"
+            android:progressDrawable="@drawable/progressbar" />
+
+        <LinearLayout
+            android:id="@+id/setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rancnge_background"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/setting" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sing_settings"
+                android:textSize="@dimen/big_text_p3"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:id="@+id/control_panel"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_above="@id/bottom_panel"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rectangle_online" />
+
+        <TextView
+            android:id="@+id/signed_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="@dimen/big_text_p4"
+            android:text="@string/sign_had_sign" />
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/rectangle_offline" />
+
+        <TextView
+            android:id="@+id/unsigned_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="@dimen/big_text_p4"
+            android:text="@string/sign_wait_sign" />
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/rectangle_weak_current" />
+
+        <TextView
+            android:id="@+id/weak_current_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/big_text_p4"
+            android:layout_marginLeft="5dp"
+            android:text="@string/basestation_manager_check_conflict" />
+
+        <!--开始签到-->
+        <LinearLayout
+            android:id="@+id/start_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/rancnge_background">
+
+            <ImageView
+                android:id="@+id/start_sign_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sign_start" />
+
+            <TextView
+                android:id="@+id/start_sign_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/sign_start_sign"
+                android:layout_marginRight="5dp"
+                android:textSize="@dimen/big_text_p3" />
+
+        </LinearLayout>
+
+        <!--开始考试-->
+        <LinearLayout
+            android:id="@+id/start_exam"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/rancnge_background">
+
+            <ImageView
+                android:id="@+id/start_exam_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/exam_start" />
+
+            <TextView
+                android:id="@+id/start_exam_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/examitation_start_exam"
+                android:layout_marginRight="5dp"
+                android:textSize="@dimen/big_text_p3" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/students"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/control_panel"
+        android:layout_below="@id/p_title_panel"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:columnWidth="120dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"></GridView>
+
+
+    <include layout="@layout/setting_panel" android:visibility="gone"/>
+
+</RelativeLayout>

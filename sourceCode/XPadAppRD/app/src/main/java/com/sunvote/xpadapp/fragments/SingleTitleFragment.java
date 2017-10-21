@@ -82,15 +82,11 @@ public class SingleTitleFragment extends BaseFragment implements ContentVoteOnBa
 			} else if (voteInfo.mode1_msgType == 2) {
 				options = voteOptions[0].split("/");
 			} else if (voteInfo.mode1_msgType == 3) {
-				if(voteInfo.mode4 - 1 < voteOptions.length){
-					options = voteOptions[voteInfo.mode4 - 1].split("/");
-				}
+				options = voteOptions[voteInfo.mode4 - 1].split("/");
 			}
 		} else if (voteInfo.mode == XPadApi.VoteType_Evaluate) {
 			if (voteInfo.mode1_msgType > 0) {
-				if(voteInfo.mode1_msgType - 1 < voteOptions.length) {
-					options = voteOptions[voteInfo.mode1_msgType - 1].split("/");
-				}
+				options = voteOptions[voteInfo.mode1_msgType - 1].split("/");
 			}
 		}else{
 			options = voteOptions[1].split("/");
@@ -229,11 +225,11 @@ public class SingleTitleFragment extends BaseFragment implements ContentVoteOnBa
 		});
 
 		// options = bill.billOptions.split("/");
-		if (options != null && options.length == 2) {
+		if (options.length == 2) {
 			btnA.setText(options[0]);
 			btnB.setVisibility(View.INVISIBLE);
 			btnC.setText(options[1]);
-		} else if (options != null && options.length == 3) {
+		} else if (options.length == 3) {
 			btnA.setText(options[0]);
 			btnB.setText(options[1]);
 			btnC.setText(options[2]);
